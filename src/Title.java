@@ -1,3 +1,6 @@
+import java.io.*;
+
+
 class Title{
     String titleName;
     int titleId;
@@ -7,6 +10,7 @@ class Title{
     int yearMade;
     String tvRating;
     int score;
+
 
     //Constructor for title class
     public Title(String titleName, int titleId, String genre,int yearMade, String tvRating, int score){
@@ -18,6 +22,8 @@ class Title{
         this.tvRating = tvRating;
         this.score = score;
     }
+
+
     //Will increase the listQuantity Int.
     public void increaseListQuantity(){
         listQuantity = listQuantity++;
@@ -34,13 +40,7 @@ class Title{
         }
 
     }
-    //Will search for the rest of the information tied to a certain titleId
-    public void searchTitle(){
-        for (int i = 0;i < listQuantity;i++){
-             titleIdList[i]
 
-        }
 
     }
-}
 
