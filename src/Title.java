@@ -38,9 +38,6 @@ class Title{
             titleIdList[listQuantity + 1] = titleId;
             increaseListQuantity();
         }
-
     }
-
-
-    }
+}
 

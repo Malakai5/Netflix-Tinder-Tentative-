@@ -8,7 +8,6 @@ import java.util.List;
 
 public class CSVreader {
     private static final String COMMA_DELIMITER = ",";
-    int amountOfRows = 0;
     String titleName;
     String tvRating;
     String genre;
@@ -18,7 +17,6 @@ public class CSVreader {
 
 
     public CSVreader(){
-        this.amountOfRows = amountOfRows;
         this.titleId = titleId;
         this.tvRating = tvRating;
         this.titleName = titleName;
@@ -30,13 +28,13 @@ public class CSVreader {
     }
 
     public List<List<String>> readCSV() {
+        String file = "Netflix database-CSV.csv";
         List<List<String>> records = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("Netflix database-CSV.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) { //Reads the Csv file
 
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(COMMA_DELIMITER);
-
                 records.add(Arrays.asList(values));
             }
         } catch (FileNotFoundException e) {
@@ -48,6 +46,8 @@ public class CSVreader {
         }
 
 
+
+        //Construct smoother singleton
 }
 
 

@@ -8,26 +8,22 @@ public class Search {
         List<List<String>> data = search.readCSV();
 
         System.out.println(data.get(titleId));
-
     }
 
-    public void getGenreList(String genre) {
+    public void getGenreList(String genre) {// sort out the genre Lists
         List<List<String>> data = search.readCSV();
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).contains(genre)) {
                 System.out.println(data.get(i));
             }
         }
-
     }
 
-    public void getRatingList(String rating) {
+    public void getTvRatingList(String tvRating) {//Sort out the rvRatingLists
         List<List<String>> data = search.readCSV();
         for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).contains(rating)) {
+            if (data.get(i).contains(tvRating)) {
                 System.out.println(data.get(i));
-
-
             }
         }
     }
