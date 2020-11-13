@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -8,13 +9,10 @@ public class Main {
         CSVreader test = new CSVreader();
         Search search = new Search();
 
-        search.getTitleInfo(132);
+        Singleton x = Singleton.getInstance();
 
+        System.out.println(x.read);
 
-        List<List<String>> data;
-        data = test.readCSV();
-
-        System.out.println(data.get(1));
 
 
     }
