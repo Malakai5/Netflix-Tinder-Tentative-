@@ -5,13 +5,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
-        CSVreader test = new CSVreader();
-        Search search = new Search();
-
         Singleton x = Singleton.getInstance();
-
-        System.out.println(x.read);
+        System.out.println(x.AllRecords.get(1));
 
 
 
