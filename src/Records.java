@@ -3,17 +3,15 @@ import java.io.*;
 
 class Records {
     String titleName;
-    int titleId;
-    int[] titleIdList;
-    int listQuantity = titleIdList.length;
+    String titleId;
     String genre;
-    int yearMade;
+    String yearMade;
     String tvRating;
-    int score;
+    String score;
 
 
     //Constructor for title class
-    public Records(String titleName, int titleId, String genre, int yearMade, String tvRating, int score){
+    public Records(String titleName, String titleId, String genre, String yearMade, String tvRating, String score){
         this.titleId = titleId;
         this.titleName = titleName;
         this.yearMade = yearMade;
@@ -21,8 +19,6 @@ class Records {
         this.tvRating = tvRating;
         this.score = score;
     }
-
-    Singleton readCVS = Singleton.getInstance();
 
 
 }

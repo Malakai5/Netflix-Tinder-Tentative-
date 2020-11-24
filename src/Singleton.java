@@ -21,24 +21,24 @@ public class Singleton { // Used to read CSV file on initiation and never need t
 
             String line = "";
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(COMMA_DELIMITER);//Will split the lines apart.
+                data = line.split(COMMA_DELIMITER);//Will split the lines apart.
 
-                String titleName = data[0];                     //imports data into AllRecords.
-                int titleId = Integer.parseInt(data[3]);        // Throwing an index out of bounds clause
+                String titleName = data[0];//imports data into AllRecords.
+                String titleId = data[3];        // Throwing an index out of bounds clause
                 String genre = data[2];
-                int yearMade = Integer.parseInt(data[4]);
-                int score = Integer.parseInt(data[5]);
+                String yearMade = data[4];
+                String score = data[5];
                 String tvRating = data[1];
 
                 Records nowRecords = new Records(titleName, titleId, genre, yearMade, tvRating, score); //Needs troubleshooting.
                 AllRecords.add(nowRecords);
-
-                System.out.println("TitleName is " + data[1] + " ,It is a " + data[2]);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        catch (NullPointerException e){
         }
     }
 
