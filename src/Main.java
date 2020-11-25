@@ -6,7 +6,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
         Singleton x = Singleton.getInstance();
-        System.out.println(x.AllRecords.get(1).genre);
+        System.out.println(x.AllRecords.size());
 
 
     }

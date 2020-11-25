@@ -34,11 +34,17 @@ public class Singleton { // Used to read CSV file on initiation and never need t
                 AllRecords.add(nowRecords);
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        catch (NullPointerException e){
+            e.printStackTrace();}
+        catch (IOException e) {
+            e.printStackTrace();}
+        finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
