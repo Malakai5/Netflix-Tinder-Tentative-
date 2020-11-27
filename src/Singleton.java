@@ -8,8 +8,10 @@ import java.util.List;
 
 
 public class Singleton { // Used to read CSV file on initiation and never need to read it again.
-    private static final String COMMA_DELIMITER =",";
-    ArrayList<Records> AllRecords;
+    private static final String COMMA_REGEX_DELIMITER = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
+
+    private static final String COMMA_DELIMTER = ",";
+    ArrayList<Records> AllRecords = new ArrayList<>();
     private static Singleton single_instance = null;
 
     // Should split the request ArrayList into individual arrays.
@@ -21,14 +23,14 @@ public class Singleton { // Used to read CSV file on initiation and never need t
 
             String line = "";
             while ((line = br.readLine()) != null) {
-                data = line.split(COMMA_DELIMITER);//Will split the lines apart.
+                data = line.split(COMMA_REGEX_DELIMITER);//Will split the lines apart.
 
-                String titleName = data[0];//imports data into AllRecords.
-                String titleId = data[3];        // Throwing an index out of bounds clause
+                String titleName = data[0];
+                String tvRating = data[1];//imports data into AllRecords.
                 String genre = data[2];
+                String titleId = data[3]; //Throwing an index out of bounds clause
                 String yearMade = data[4];
                 String score = data[5];
-                String tvRating = data[1];
 
                 Records nowRecords = new Records(titleName, titleId, genre, yearMade, tvRating, score); //Needs troubleshooting.
                 AllRecords.add(nowRecords);
@@ -37,20 +39,13 @@ public class Singleton { // Used to read CSV file on initiation and never need t
             e.printStackTrace();}
         catch (IOException e) {
             e.printStackTrace();}
-        finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
-
     public static Singleton getInstance() {
         if (single_instance == null)
             single_instance = new Singleton();
         return single_instance;
     }
     }
+    //TODO Place the contents of the Singleton Constructer into a method
+    //TODO public List<Records> readCSV(String fileName)
+    //TODO public void writeCSV(String fileName, List<Records> recordList)
