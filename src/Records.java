@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 class Records {
@@ -19,7 +21,5 @@ class Records {
         this.tvRating = tvRating;
         this.score = score;
     }
-
-
 }
 
