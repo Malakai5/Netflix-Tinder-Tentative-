@@ -84,11 +84,41 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         String file = fileName;
         String[] data = new String[0];
 
-        try (BufferedWriter br = new BufferedWriter( new FileWriter(fileName))) {
-            String line = "";
-            
+        try (PrintWriter br = new PrintWriter( new FileWriter(fileName))) {
 
+            StringBuilder loop = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
+            sb.append("TitleName");
+            sb.append(",");
+            sb.append("TvRating");
+            sb.append(",");
+            sb.append("Genre");
+            sb.append(",");
+            sb.append("TitleId");
+            sb.append(",");
+            sb.append("YearMade");
+            sb.append(",");
+            sb.append("Score");
+            sb.append("\n");
 
+            br.write(sb.toString());
+
+            for (int i = 0;i < recordList.size();i++){
+                loop.append(recordList.get(i).titleName);
+                loop.append(",");
+                loop.append(recordList.get(i).tvRating);
+                loop.append(",");
+                loop.append(recordList.get(i).genre);
+                loop.append(",");
+                loop.append(recordList.get(i).titleId);
+                loop.append(",");
+                loop.append(recordList.get(i).yearMade);
+                loop.append(",");
+                loop.append(recordList.get(i).score);
+                loop.append("\n");
+
+                br.write(loop.toString());
+            }
         }
         catch (IOException e) {
             e.printStackTrace();

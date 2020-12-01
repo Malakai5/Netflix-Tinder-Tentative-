@@ -17,6 +17,8 @@ public class Main {
                     + recordsList.get(i).yearMade + "," + recordsList.get(i).score);
         }
 
+
+        x.writeCSV("TestCSVFIle.csv",recordsList);
     }
 }
 // TODO Call readCSV, print out the list #Completed
