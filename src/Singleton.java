@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -10,7 +9,7 @@ public class Singleton { // Used to read CSV file on initiation and never need t
     ArrayList<Records> AllRecords = new ArrayList<>();
     private static Singleton single_instance = null;
 
-    private Singleton() {//Singleton file to set Variable read equal to The CSV file
+    private Singleton() {
 
     }
 
@@ -64,12 +63,6 @@ public class Singleton { // Used to read CSV file on initiation and never need t
 
                 Records currentRecords = new Records(titleName,tvRating,genre,titleId,yearMade,score);
                 recordList.add(currentRecords);
-
-//                for(int i = 0;i < recordList.size();i++){
-//                    System.out.println(recordList.get(i).titleName + "," + recordList.get(i).tvRating
-//                     + "," + recordList.get(i).genre + "," + recordList.get(i).titleId + ","
-//                     + recordList.get(i).yearMade + "," + recordList.get(i).score);
-//                }
             }
         }
         catch (FileNotFoundException e) {
@@ -86,47 +79,39 @@ public class Singleton { // Used to read CSV file on initiation and never need t
 
         try (PrintWriter br = new PrintWriter( new FileWriter(fileName))) {
 
-            StringBuilder loop = new StringBuilder();
             StringBuilder sb = new StringBuilder();
-            sb.append("TitleName");
-            sb.append(",");
-            sb.append("TvRating");
-            sb.append(",");
-            sb.append("Genre");
-            sb.append(",");
-            sb.append("TitleId");
-            sb.append(",");
-            sb.append("YearMade");
-            sb.append(",");
-            sb.append("Score");
-            sb.append("\n");
+            String headers;
+
+            headers = "TitleName,TvRating,Genre,TitleId,YearMade,Score";
+            sb.append(headers + "\n");
 
             br.write(sb.toString());
 
             for (int i = 0;i < recordList.size();i++){
-                loop.append(recordList.get(i).titleName);
-                loop.append(",");
-                loop.append(recordList.get(i).tvRating);
-                loop.append(",");
-                loop.append(recordList.get(i).genre);
-                loop.append(",");
-                loop.append(recordList.get(i).titleId);
-                loop.append(",");
-                loop.append(recordList.get(i).yearMade);
-                loop.append(",");
-                loop.append(recordList.get(i).score);
-                loop.append("\n");
 
-                br.write(loop.toString());
+                if (i !=0) {
+                    StringBuilder loop = new StringBuilder();
+                    loop.append(recordList.get(i).titleName);
+                    loop.append(",");
+                    loop.append(recordList.get(i).tvRating);
+                    loop.append(",");
+                    loop.append(recordList.get(i).genre);
+                    loop.append(",");
+                    loop.append(recordList.get(i).titleId);
+                    loop.append(",");
+                    loop.append(recordList.get(i).yearMade);
+                    loop.append(",");
+                    loop.append(recordList.get(i).score);
+                    loop.append("\n");
+
+                    br.write(loop.toString());
+                }
             }
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
-
     public static Singleton getInstance() {
         if (single_instance == null)
             single_instance = new Singleton();
@@ -135,4 +120,4 @@ public class Singleton { // Used to read CSV file on initiation and never need t
     }
     //TODO Place the contents of the Singleton Constructer into a method #Created the createRecords method
     //TODO public List<Records> readCSV(String fileName) #Ask bars to take a Look at method
-    //TODO public void writeCSV(String fileName, List<Records> recordList)
+    //TODO public void writeCSV(String fileName, List<Records> recordList) #Completed

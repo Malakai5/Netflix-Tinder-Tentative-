@@ -18,9 +18,9 @@ public class Main {
         }
 
 
-        x.writeCSV("TestCSVFIle.csv",recordsList);
+        x.writeCSV("TestCSVFile.csv",recordsList);
     }
 }
 // TODO Call readCSV, print out the list #Completed
-// TODO Delete things in the list #Needs to be able to permanently delete from Netflix(Copy).csv
-// TODO Write the list to a file
+// TODO Delete things in the list #Completed
+// TODO Write the list to a file #Completed, see if Raul has any possible upgrades.

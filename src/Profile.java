@@ -7,17 +7,26 @@ class Profile {
     ArrayList undecidedTitles;
     ArrayList genreInterests;
     int userID;
-    int pairCode;
+
+//    int pairCode;
 
 
-    public Profile(){
+    public Profile(String userName, int userID){
+        this.dislikedTitles = dislikedTitles;
+        this.undecidedTitles = undecidedTitles;
+        this.likedTitles = likedTitles;
         this.userName = userName;
         this.genreInterests = genreInterests;
-        this.pairCode = pairCode;
+//        this.pairCode = pairCode;
         this.userID = userID;
     }
-//    Title titles = new Title("Rubber", 8, "Horror");
-//        ArrayList titleList = titles.addTitleId(titles.titleId);
-//
+
+    public Profile createProfile(String userName,int userId, String displayName){
+             
+
+
+
+        return null;
+    }
 }
 
