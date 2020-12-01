@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,7 +47,7 @@ public class Singleton { // Used to read CSV file on initiation and never need t
     public List<Records> readCSV(String fileName){
         String file = fileName;
         String[] data = new String[0];
-        List<Records> currentFile = new ArrayList<>();
+        List<Records> recordList = new ArrayList<>();
 
         try (BufferedReader br =  new BufferedReader(new FileReader(file))) { //Reads the initial file
 
@@ -66,12 +63,12 @@ public class Singleton { // Used to read CSV file on initiation and never need t
                 String score = data[5];
 
                 Records currentRecords = new Records(titleName,tvRating,genre,titleId,yearMade,score);
-                currentFile.add(currentRecords);
+                recordList.add(currentRecords);
 
-//                for(int i = 0;i < currentFile.size();i++){
-//                    System.out.println(currentFile.get(i).titleName + "," + currentFile.get(i).tvRating
-//                     + "," + currentFile.get(i).genre + "," + currentFile.get(i).titleId + ","
-//                     + currentFile.get(i).yearMade + "," + currentFile.get(i).score);
+//                for(int i = 0;i < recordList.size();i++){
+//                    System.out.println(recordList.get(i).titleName + "," + recordList.get(i).tvRating
+//                     + "," + recordList.get(i).genre + "," + recordList.get(i).titleId + ","
+//                     + recordList.get(i).yearMade + "," + recordList.get(i).score);
 //                }
             }
         }
@@ -80,9 +77,25 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return currentFile;
+        return recordList;
     }
 
+    public void writeCSV(String fileName, List<Records> recordList){
+        String file = fileName;
+        String[] data = new String[0];
+
+        try (BufferedWriter br = new BufferedWriter( new FileWriter(fileName))) {
+            String line = "";
+            
+
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     public static Singleton getInstance() {
         if (single_instance == null)
