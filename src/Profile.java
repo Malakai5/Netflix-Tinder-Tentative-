@@ -21,8 +21,8 @@ class Profile {
         this.userID = userID;
     }
 
-    public Profile createProfile(String userName,int userId, String displayName){
-             
+    public Profile createProfile(String userName,int userId){
+
 
 
 

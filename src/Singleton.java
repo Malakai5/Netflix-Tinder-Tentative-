@@ -6,47 +6,17 @@ import java.util.List;
 public class Singleton { // Used to read CSV file on initiation and never need to read it again.
     private static final String COMMA_REGEX_DELIMITER = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
     private static final String COMMA_DELIMTER = ",";
-    ArrayList<Records> AllRecords = new ArrayList<>();
+    ArrayList<Record> AllRecords = new ArrayList<>();
     private static Singleton single_instance = null;
 
     private Singleton() {
 
     }
 
-
-    public ArrayList<Records> createRecords(String fileName){// returns a easily modifed set of records.
-
+    public List<Record> readCSV(String fileName){
         String file = fileName;
         String[] data = new String[0];
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) { //Reads the Csv file
-
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                data = line.split(COMMA_REGEX_DELIMITER);//Will split the lines apart.
-
-                String titleName = data[0];
-                String tvRating = data[1];//imports data into AllRecords.
-                String genre = data[2];
-                String titleId = data[3];
-                String yearMade = data[4];
-                String score = data[5];
-
-                Records nowRecords = new Records(titleName, titleId, genre, yearMade, tvRating, score);
-                AllRecords.add(nowRecords);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();}
-        catch (IOException e) {
-            e.printStackTrace();}
-
-        return AllRecords;
-    }
-
-    public List<Records> readCSV(String fileName){
-        String file = fileName;
-        String[] data = new String[0];
-        List<Records> recordList = new ArrayList<>();
+        List<Record> recordList = new ArrayList<>();
 
         try (BufferedReader br =  new BufferedReader(new FileReader(file))) { //Reads the initial file
 
@@ -61,7 +31,7 @@ public class Singleton { // Used to read CSV file on initiation and never need t
                 String yearMade = data[4];
                 String score = data[5];
 
-                Records currentRecords = new Records(titleName,tvRating,genre,titleId,yearMade,score);
+                Record currentRecords = new Record(titleName,tvRating,genre,titleId,yearMade,score);
                 recordList.add(currentRecords);
             }
         }
@@ -73,38 +43,22 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return recordList;
     }
 
-    public void writeCSV(String fileName, List<Records> recordList){
+    public void writeCSV(String fileName, List<Record> recordList){
         String file = fileName;
         String[] data = new String[0];
+        Record tempRecord = new Record();
 
         try (PrintWriter br = new PrintWriter( new FileWriter(fileName))) {
 
-            StringBuilder sb = new StringBuilder();
             String headers;
 
-            headers = "TitleName,TvRating,Genre,TitleId,YearMade,Score";
-            sb.append(headers + "\n");
-
-            br.write(sb.toString());
+            headers = "TitleName,TvRating,Genre,TitleId,YearMade,Score \n";
+            br.write(headers);
 
             for (int i = 0;i < recordList.size();i++){
 
                 if (i !=0) {
-                    StringBuilder loop = new StringBuilder();
-                    loop.append(recordList.get(i).titleName);
-                    loop.append(",");
-                    loop.append(recordList.get(i).tvRating);
-                    loop.append(",");
-                    loop.append(recordList.get(i).genre);
-                    loop.append(",");
-                    loop.append(recordList.get(i).titleId);
-                    loop.append(",");
-                    loop.append(recordList.get(i).yearMade);
-                    loop.append(",");
-                    loop.append(recordList.get(i).score);
-                    loop.append("\n");
-
-                    br.write(loop.toString());
+                    br.write(String.valueOf(tempRecord.toCSV(recordList,i)));
                 }
             }
         }
