@@ -4,10 +4,12 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
 
+
         List<Record> recordsList;
+        List<Profile> profileList;
         Singleton x = Singleton.getInstance();
+        profileList = x.readProfileCSV();
         recordsList = x.readCSV("Netflix(Copy).csv");
-        recordsList.remove(330);//removes id 330 from recordsList but not from "Netflix(Copy).csv"
 
 //        for(int i = 0;i < recordsList.size();i++){ // Prints out recordsList
 //            System.out.println(recordsList.get(i).titleName + "," + recordsList.get(i).tvRating
@@ -17,8 +19,8 @@ public class Main {
 
 
         x.writeCSV("TestCSVFile.csv",recordsList);
+        x.writeProfileCSV(profileList);
     }
+
 }
-// TODO Call readCSV, print out the list #Completed
-// TODO Delete things in the list #Completed
-// TODO Write the list to a file #Completed, see if Raul has any possible upgrades.
+

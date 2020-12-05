@@ -1,12 +1,14 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class Singleton { // Used to read CSV file on initiation and never need to read it again.
     private static final String COMMA_REGEX_DELIMITER = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
     private static final String COMMA_DELIMTER = ",";
     ArrayList<Record> AllRecords = new ArrayList<>();
+    List<Profile> profileList = new ArrayList<>();
     private static Singleton single_instance = null;
 
     private Singleton() {
@@ -44,8 +46,6 @@ public class Singleton { // Used to read CSV file on initiation and never need t
     }
 
     public void writeCSV(String fileName, List<Record> recordList){
-        String file = fileName;
-        String[] data = new String[0];
         Record tempRecord = new Record();
 
         try (PrintWriter br = new PrintWriter( new FileWriter(fileName))) {
@@ -66,12 +66,51 @@ public class Singleton { // Used to read CSV file on initiation and never need t
             e.printStackTrace();
         }
     }
+
+    public List<Profile> readProfileCSV() throws FileNotFoundException {
+        String file = "ProfileCSV.csv";
+        List<Profile> profileList = new ArrayList<>();
+
+        try (BufferedReader br =  new BufferedReader(new FileReader(file))) {
+            String line = "";
+            while ((line = br.readLine()) != null){
+                String[] data = line.split(COMMA_REGEX_DELIMITER);
+
+                String userName = data[0];
+                String userID = data[1];
+
+                Profile currentProfile = new Profile(userName,userID);
+                profileList.add(currentProfile);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return profileList;
+    }
+
+
+    public void writeProfileCSV(List<Profile> profileList) throws IOException {
+        Profile tempProfile = new Profile();
+        tempProfile.makeNewProfile(profileList);
+        String file = "Profile.CSV";
+
+        try (PrintWriter br = new PrintWriter(new FileWriter(file))) {
+            String headers;
+            headers = "Name, UserId\n";
+            br.write(headers);
+
+            String entry = tempProfile.userName + "," + tempProfile.userID + "\n";
+            br.write(entry);
+        }//Giving an array Out of Bounds Exception
+    }
+
+
+
+
+
     public static Singleton getInstance() {
         if (single_instance == null)
             single_instance = new Singleton();
         return single_instance;
     }
     }
-    //TODO Place the contents of the Singleton Constructer into a method #Created the createRecords method
-    //TODO public List<Records> readCSV(String fileName) #Ask bars to take a Look at method
-    //TODO public void writeCSV(String fileName, List<Records> recordList) #Completed
