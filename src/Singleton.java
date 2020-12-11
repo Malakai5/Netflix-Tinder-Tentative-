@@ -67,14 +67,16 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         }
     }
 
-    public List<Profile> readProfileCSV() throws FileNotFoundException {
+    public List<Profile> readProfileCSV() throws FileNotFoundException {// This Method seems to work Completely as intended
         String file = "ProfileCSV.csv";
         List<Profile> profileList = new ArrayList<>();
+        String[] data = new String[0];
 
         try (BufferedReader br =  new BufferedReader(new FileReader(file))) {
             String line = "";
+
             while ((line = br.readLine()) != null){
-                String[] data = line.split(COMMA_REGEX_DELIMITER);
+                data = line.split(COMMA_REGEX_DELIMITER);
 
                 String userName = data[0];
                 String userID = data[1];
@@ -88,11 +90,9 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return profileList;
     }
 
-
-    public void writeProfileCSV(List<Profile> profileList) throws IOException {
-        Profile tempProfile = new Profile();
-        tempProfile.makeNewProfile(profileList);
-        String file = "Profile.CSV";
+    public void writeProfileCSV(List<Profile> profileList) throws IOException {//This File needs to be worked on
+        Profile tempProfile = new Profile().makeNewProfile(profileList);
+        String file = "ProfileCSV.csv";
 
         try (PrintWriter br = new PrintWriter(new FileWriter(file))) {
             String headers;
@@ -101,12 +101,8 @@ public class Singleton { // Used to read CSV file on initiation and never need t
 
             String entry = tempProfile.userName + "," + tempProfile.userID + "\n";
             br.write(entry);
-        }//Giving an array Out of Bounds Exception
+        }
     }
-
-
-
-
 
     public static Singleton getInstance() {
         if (single_instance == null)
