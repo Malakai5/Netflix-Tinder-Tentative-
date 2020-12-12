@@ -90,18 +90,24 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return profileList;
     }
 
-    public void writeProfileCSV(List<Profile> profileList) throws IOException {//This File needs to be worked on
-        Profile tempProfile = new Profile().makeNewProfile(profileList);
+    public List<Profile> writeProfileCSV() throws IOException {//This File needs to be worked on
         String file = "ProfileCSV.csv";
+        List<Profile>tempProfileList = readProfileCSV();
 
         try (PrintWriter br = new PrintWriter(new FileWriter(file))) {
             String headers;
-            headers = "Name, UserId\n";
+            headers = "Name,UserId\n";
             br.write(headers);
 
+            Profile tempProfile = new Profile().makeNewProfile(tempProfileList);
+
             String entry = tempProfile.userName + "," + tempProfile.userID + "\n";
+
+            Profile newProfile = new Profile(tempProfile.userName, tempProfile.userID);
+            tempProfileList.add(newProfile);
             br.write(entry);
         }
+        return tempProfileList;
     }
 
     public static Singleton getInstance() {
