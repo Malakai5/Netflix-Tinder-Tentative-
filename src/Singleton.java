@@ -1,14 +1,11 @@
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class Singleton { // Used to read CSV file on initiation and never need to read it again.
     private static final String COMMA_REGEX_DELIMITER = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
-    private static final String COMMA_DELIMTER = ",";
-    ArrayList<Record> AllRecords = new ArrayList<>();
-    List<Profile> profileList = new ArrayList<>();
     private static Singleton single_instance = null;
 
     private Singleton() {
@@ -16,18 +13,17 @@ public class Singleton { // Used to read CSV file on initiation and never need t
     }
 
     public List<Record> readCSV(String fileName){
-        String file = fileName;
-        String[] data = new String[0];
+        String[] data;
         List<Record> recordList = new ArrayList<>();
 
-        try (BufferedReader br =  new BufferedReader(new FileReader(file))) { //Reads the initial file
+        try (BufferedReader br =  new BufferedReader(new FileReader(fileName))) { //Reads the initial file
 
-            String line = "";
+            String line;
             while((line = br.readLine()) != null) {
                 data = line.split(COMMA_REGEX_DELIMITER);//Will split the lines into pieces
 
                 String titleName = data[0];
-                String tvRating = data[1];//imports data into AllRecords.
+                String tvRating = data[1];
                 String genre = data[2];
                 String titleId = data[3]; //Throwing an index out of bounds clause
                 String yearMade = data[4];
@@ -36,9 +32,6 @@ public class Singleton { // Used to read CSV file on initiation and never need t
                 Record currentRecords = new Record(titleName,tvRating,genre,titleId,yearMade,score);
                 recordList.add(currentRecords);
             }
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,13 +60,13 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         }
     }
 
-    public List<Profile> readProfileCSV() throws FileNotFoundException {// This Method seems to work Completely as intended
+    public List<Profile> readProfileCSV() {// This Method seems to work Completely as intended
         String file = "ProfileCSV.csv";
         List<Profile> profileList = new ArrayList<>();
-        String[] data = new String[0];
+        String[] data;
 
         try (BufferedReader br =  new BufferedReader(new FileReader(file))) {
-            String line = "";
+            String line;
 
             while ((line = br.readLine()) != null){
                 data = line.split(COMMA_REGEX_DELIMITER);
@@ -90,24 +83,28 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return profileList;
     }
 
-    public List<Profile> writeProfileCSV() throws IOException {//This File needs to be worked on
+    public void addToProfileCSV(List<Profile> profileList) throws IOException {//Adds to profileCSV.csv
         String file = "ProfileCSV.csv";
-        List<Profile>tempProfileList = readProfileCSV();
+        Profile newProfile = new Profile();
+        Profile tempProfile = new Profile();
 
-        try (PrintWriter br = new PrintWriter(new FileWriter(file))) {
+        newProfile.makeNewProfile(profileList);
+
+        try (BufferedWriter br = new BufferedWriter(new FileWriter(file))){
+
             String headers;
-            headers = "Name,UserId\n";
+            headers = "UserName,UserID\n";
+
             br.write(headers);
 
-            Profile tempProfile = new Profile().makeNewProfile(tempProfileList);
-
-            String entry = tempProfile.userName + "," + tempProfile.userID + "\n";
-
-            Profile newProfile = new Profile(tempProfile.userName, tempProfile.userID);
-            tempProfileList.add(newProfile);
-            br.write(entry);
+            for (int i = 0;i < profileList.size();i++) {
+                if (i != 0) {
+                    br.write(String.valueOf(tempProfile.toCSV(profileList, i)));
+                }
+            }
         }
-        return tempProfileList;
+
+
     }
 
     public static Singleton getInstance() {

@@ -9,6 +9,7 @@ class Profile {
     List<Record> undecidedTitles;
     ArrayList genreInterests;
     String userID;
+    int selectID;
 
 //    int pairCode;
 
@@ -30,27 +31,28 @@ class Profile {
         this.genreInterests = genreInterests;
 //        this.pairCode = pairCode;
         this.userID = userID;
+        this.selectID = selectID;
     }
 
 
 
-    public Profile makeNewProfile(List<Profile> profileList){// Method used to create new Profile for Singleton writeProfileCSV
+    public void makeNewProfile(List<Profile> profileList){// Method used to create new Profile for Singleton writeProfileCSV
 
         Scanner scnr = new Scanner(System.in);
         String userName = scnr.nextLine();
-        int selectID = profileList.size() + 1;
+        selectID = profileList.size();
         String userID = Integer.toString(selectID);
 
         Profile newProfile = new Profile(userName, userID);
-        return newProfile;
+        profileList.add(newProfile);
     }
 
-    public String toCSV(List<Profile> profileList,String name){
+    public String toCSV(List<Profile> profileList, int i){
+        String userName = profileList.get(i).userName;
+        String userID = profileList.get(i).userID;
 
-
-
-
-        return null;
+        String result = userName + "," + userID + "\n";
+        return result;
     }
 }
 

@@ -24,8 +24,11 @@ public class Main {
 
 
         x.writeCSV("TestCSVFile.csv",recordsList);
-        x.writeProfileCSV();
-        x.writeProfileCSV();
+        x.addToProfileCSV(profileList);
+        x.addToProfileCSV(profileList);
+        x.addToProfileCSV(profileList);
+        x.addToProfileCSV(profileList);
+
 
     }
 
