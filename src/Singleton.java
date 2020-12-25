@@ -83,7 +83,9 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return profileList;
     }
 
-    public void addToProfileCSV(List<Profile> profileList) throws IOException {//Adds to profileCSV.csv
+    public void addToProfileCSV(List<Profile> profileList) throws IOException {//Adds new Profile to profileCSV.csv
+        System.out.println("Profile not found");
+        System.out.println("Please enter your UserName");
         String file = "ProfileCSV.csv";
         Profile newProfile = new Profile();
         Profile tempProfile = new Profile();
@@ -103,8 +105,6 @@ public class Singleton { // Used to read CSV file on initiation and never need t
                 }
             }
         }
-
-
     }
 
     public static Singleton getInstance() {

@@ -1,33 +1,33 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        Record tempRecord = new Record();
+        Profile tempProfile = new Profile();
+        List<Record> recordList = new ArrayList<>();
+        List<Profile> profileList = new ArrayList<>();
+        Singleton singleton = Singleton.getInstance();
+        recordList = singleton.readCSV("Netflix(Original!!).csv");
+        profileList = singleton.readProfileCSV();
 
 
-        List<Record> recordsList;
-        List<Profile> profileList;
-        Singleton x = Singleton.getInstance();
-        profileList = x.readProfileCSV();
-        recordsList = x.readCSV("Netflix(Copy).csv");
 
-        for (int i = 0; i < profileList.size();i++){
-            System.out.println(profileList.get(i).userName + "," + profileList.get(i).userID);
-
-        }
-
-//        for(int i = 0;i < recordsList.size();i++){ // Prints out recordsList
-//            System.out.println(recordsList.get(i).titleName + "," + recordsList.get(i).tvRating
-//                    + "," + recordsList.get(i).genre + "," + recordsList.get(i).titleId + ","
-//                    + recordsList.get(i).yearMade + "," + recordsList.get(i).score);
+//        for (int i = 0; i < recordList.size();i++){
+//            System.out.println(tempRecord.toCSV(recordList,i));
 //        }
 
+//        for (int i = 0;i < profileList.size();i++){
+//            System.out.print(tempProfile.toCSV(profileList,i));
+//        }
 
-        x.writeCSV("TestCSVFile.csv",recordsList);
-        x.addToProfileCSV(profileList);
-        x.addToProfileCSV(profileList);
-        x.addToProfileCSV(profileList);
-        x.addToProfileCSV(profileList);
+//        System.out.println(tempProfile.checkExistingProfile(profileList));
+
+        if (!tempProfile.checkExistingProfile(profileList)){
+            singleton.addToProfileCSV(profileList);
+        }
+
 
 
     }

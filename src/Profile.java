@@ -54,5 +54,21 @@ class Profile {
         String result = userName + "," + userID + "\n";
         return result;
     }
+
+    public boolean checkExistingProfile(List<Profile> profileList){
+        System.out.println("Please enter your UserName");
+        boolean results = false;
+        Scanner scnr = new Scanner(System.in);
+        String inputName = scnr.nextLine();
+        System.out.println("Looking for existing profile...");
+        for (int i = 0;i < profileList.size();i++){
+            if (profileList.get(i).userName.contains(inputName)) {
+                results = true;
+                System.out.println("Profile found!!");
+                break;
+            }
+        }
+        return results;
+    }
 }
 
