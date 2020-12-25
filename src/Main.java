@@ -24,8 +24,8 @@ public class Main {
 
 //        System.out.println(tempProfile.checkExistingProfile(profileList));
 
-        if (!tempProfile.checkExistingProfile(profileList)){
-            singleton.addToProfileCSV(profileList);
+        if (!tempProfile.checkExistingProfile(profileList)){ //This checks for a profile, if none is found then it makes one
+            singleton.addToProfileCSV(profileList,recordList);
         }
 
 

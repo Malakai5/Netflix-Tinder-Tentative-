@@ -83,14 +83,19 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return profileList;
     }
 
-    public void addToProfileCSV(List<Profile> profileList) throws IOException {//Adds new Profile to profileCSV.csv
+    public void addToProfileCSV(List<Profile> profileList, List<Record> recordList) throws IOException {//Adds new Profile to profileCSV.csv
         System.out.println("Profile not found");
         System.out.println("Please enter your UserName");
         String file = "ProfileCSV.csv";
         Profile newProfile = new Profile();
         Profile tempProfile = new Profile();
 
-        newProfile.makeNewProfile(profileList);
+
+        newProfile = newProfile.makeNewProfile(profileList);
+//        newProfile.makeNewProfile(profileList);
+
+        System.out.println(newProfile.userName);
+        createCsv(newProfile.userName, recordList);
 
         try (BufferedWriter br = new BufferedWriter(new FileWriter(file))){
 
@@ -105,6 +110,12 @@ public class Singleton { // Used to read CSV file on initiation and never need t
                 }
             }
         }
+    }
+
+    public void createCsv(String userName, List<Record> recordList){
+        String csvTag = ".csv";
+        String file = userName + "'s Undecided Titles" + csvTag;
+        writeCSV(file, recordList);
     }
 
     public static Singleton getInstance() {

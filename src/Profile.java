@@ -36,7 +36,7 @@ class Profile {
 
 
 
-    public void makeNewProfile(List<Profile> profileList){// Method used to create new Profile for Singleton writeProfileCSV
+    public Profile makeNewProfile(List<Profile> profileList){// Method used to create new Profile for Singleton writeProfileCSV
 
         Scanner scnr = new Scanner(System.in);
         String userName = scnr.nextLine();
@@ -45,6 +45,8 @@ class Profile {
 
         Profile newProfile = new Profile(userName, userID);
         profileList.add(newProfile);
+
+        return newProfile;
     }
 
     public String toCSV(List<Profile> profileList, int i){
