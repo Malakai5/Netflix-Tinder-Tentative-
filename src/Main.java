@@ -24,11 +24,7 @@ public class Main {
 
 //        System.out.println(tempProfile.checkExistingProfile(profileList));
 
-        if (!tempProfile.checkExistingProfile(profileList)){ //This checks for a profile, if none is found then it makes one
-            singleton.addToProfileCSV(profileList,recordList);
-        }
-
-
+       List<Record> undecidedList1 = singleton.getUndecidedTitles(profileList,recordList);//Takes the username and either adds a new profile or returns the undecided List
 
     }
 

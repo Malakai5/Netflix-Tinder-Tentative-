@@ -1,7 +1,7 @@
-import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class Singleton { // Used to read CSV file on initiation and never need to read it again.
@@ -83,19 +83,16 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return profileList;
     }
 
-    public void addToProfileCSV(List<Profile> profileList, List<Record> recordList) throws IOException {//Adds new Profile to profileCSV.csv
+    public Profile addToProfileCSV(List<Profile> profileList, List<Record> recordList) throws IOException {//Adds new Profile to profileCSV.csv
         System.out.println("Profile not found");
         System.out.println("Please enter your UserName");
         String file = "ProfileCSV.csv";
         Profile newProfile = new Profile();
         Profile tempProfile = new Profile();
 
-
         newProfile = newProfile.makeNewProfile(profileList);
-//        newProfile.makeNewProfile(profileList);
 
-        System.out.println(newProfile.userName);
-        createCsv(newProfile.userName, recordList);
+        createCsv(newProfile.userName, recordList);//Creates the undecided list for new Profiles.
 
         try (BufferedWriter br = new BufferedWriter(new FileWriter(file))){
 
@@ -110,6 +107,31 @@ public class Singleton { // Used to read CSV file on initiation and never need t
                 }
             }
         }
+        return newProfile;
+    }
+
+    public List<Record> getUndecidedTitles(List<Profile> profileList,List<Record> recordList) throws IOException {
+        List<Record> undecidedTitles = new ArrayList<>();
+        Profile tempProfile = new Profile();
+        Record tempRecord = new Record();
+        System.out.println("Please enter your Username");
+        Scanner scnr = new Scanner(System.in);
+        String inputName = scnr.nextLine();
+        String fileName = inputName + "'s Undecided Titles.csv";
+        System.out.println("Looking for existing profile...");
+
+        boolean existingProfile = tempProfile.checkExistingProfile(profileList,inputName);
+
+        if (!existingProfile){
+           addToProfileCSV(profileList,recordList);
+        }
+        else{
+            undecidedTitles = readCSV(fileName);
+            for (int i = 0; i < recordList.size();i++){
+//                System.out.println(tempRecord.toCSV(recordList,i)); // for testing in case of failures.
+            }
+        }
+        return undecidedTitles;
     }
 
     public void createCsv(String userName, List<Record> recordList){

@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 class Profile {
+    Singleton singleton = Singleton.getInstance();
     String userName;
     List<Record> likedTitles;
     List<Record> dislikedTitles;
@@ -57,12 +58,9 @@ class Profile {
         return result;
     }
 
-    public boolean checkExistingProfile(List<Profile> profileList){
-        System.out.println("Please enter your UserName");
+
+    public boolean checkExistingProfile(List<Profile> profileList, String inputName){
         boolean results = false;
-        Scanner scnr = new Scanner(System.in);
-        String inputName = scnr.nextLine();
-        System.out.println("Looking for existing profile...");
         for (int i = 0;i < profileList.size();i++){
             if (profileList.get(i).userName.contains(inputName)) {
                 results = true;
