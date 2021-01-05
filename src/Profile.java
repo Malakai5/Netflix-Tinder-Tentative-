@@ -4,10 +4,9 @@ import java.util.Scanner;
 
 class Profile {
     String userName;
-    List<Record> likedTitles;
-    List<Record> dislikedTitles;
-    List<Record> undecidedTitles;
-    ArrayList genreInterests;
+    List<Record> likedTitles = new ArrayList<>();
+    List<Record> dislikedTitles = new ArrayList<>();
+    List<Record> undecidedTitles = new ArrayList<>();
     String userID;
     int selectID;
 
@@ -16,7 +15,6 @@ class Profile {
         this.undecidedTitles = undecidedTitles;
         this.likedTitles = likedTitles;
         this.userName = userName;
-        this.genreInterests = genreInterests;
         this.userID = userID;
     }
     public Profile(){
@@ -24,7 +22,6 @@ class Profile {
         this.undecidedTitles = undecidedTitles;
         this.likedTitles = likedTitles;
         this.userName = userName;
-        this.genreInterests = genreInterests;
         this.userID = userID;
         this.selectID = selectID;
     }
@@ -55,5 +52,46 @@ class Profile {
    public void setUndecidedTitles(List<Record> recordList){
         undecidedTitles = recordList;
    }
+   public void setUserName(String inputName){
+        userName = inputName;
+   }
+
+    public List<Record> likeOrDislike(List<Record> undecidedList){
+
+        Record tempRecord = new Record();
+        Scanner scnr = new Scanner(System.in);
+        List<Record> newUndecidedList = undecidedList;
+        System.out.println("Are you interested in this title?");
+        System.out.println("Please enter: '1' for YES, '2' for NO, '3' to stop");
+
+        for (int i = 1;i < undecidedList.size();i++){
+
+            System.out.println(tempRecord.toCSV(undecidedList,i));
+            int choice = scnr.nextInt();
+
+            if (choice == 1){
+                System.out.println("That's a Like!!");
+                likedTitles.add(undecidedList.get(i));
+                newUndecidedList.remove(i);
+            }
+            if (choice == 2){
+                System.out.println("Nah that ones Boring");
+                dislikedTitles.add(undecidedList.get(i));
+                newUndecidedList.remove(i);
+            }
+            if (choice == 3) {
+                System.out.println("Alright we'll stop here");
+                break;
+            }
+            else{
+                System.out.println("Please enter numbers 1,2,or 3");
+            }
+            //Add in the elif statements.
+
+        }
+
+
+        return newUndecidedList;
+    }
 }
 

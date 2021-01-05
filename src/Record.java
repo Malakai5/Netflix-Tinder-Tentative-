@@ -39,4 +39,6 @@ class Record {
         String result = titleName + "," + tvRating + "," + genre + "," + titleId + "," + yearMade + "," + score + "\n";
         return result;
     }
+
 }
+
