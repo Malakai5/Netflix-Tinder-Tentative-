@@ -1,17 +1,12 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Record tempRecord = new Record();
-        Profile tempProfile = new Profile();
-        List<Record> recordList = new ArrayList<>();
-        List<Profile> profileList = new ArrayList<>();
-        Singleton singleton = Singleton.getInstance();
-        recordList = singleton.readCSV("Netflix(Original!!).csv");
-        profileList = singleton.readProfileCSV();
 
+        Singleton singleton = Singleton.getInstance();
+        List <Record> recordList = singleton.recordList;
 
 
 //        for (int i = 0; i < recordList.size();i++){
@@ -24,9 +19,28 @@ public class Main {
 
 //        System.out.println(tempProfile.checkExistingProfile(profileList));
 
-       List<Record> undecidedList1 = singleton.getUndecidedTitles(profileList,recordList);//Takes the username and either adds a new profile or returns the undecided List
+
+
+        System.out.println("Please enter your Username");
+
+        Scanner scnr = new Scanner(System.in);
+        String inputName = scnr.nextLine();
+        String fileName = inputName + "'s Undecided Titles.csv";
+
+        System.out.println("Looking for existing profile...");
+
+        boolean existingProfile = singleton.checkExistingProfile(inputName);
+
+        Profile profile = new Profile();
+        if (!existingProfile) {
+            profile = singleton.addToProfileCSV();
+
+        } else {
+            singleton.writeCSV(fileName,recordList);
+
+        }
+        profile.setUndecidedTitles(recordList);
 
     }
-
 }
 

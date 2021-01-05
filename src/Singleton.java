@@ -1,14 +1,17 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
 
 public class Singleton { // Used to read CSV file on initiation and never need to read it again.
     private static final String COMMA_REGEX_DELIMITER = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
     private static Singleton single_instance = null;
+    List<Profile> profileList;
+    List<Record> recordList;
 
     private Singleton() {
+        this.profileList = readProfileCSV();
+        this.recordList = readCSV("Netflix(Original!!).csv");
+
 
     }
 
@@ -83,7 +86,7 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return profileList;
     }
 
-    public Profile addToProfileCSV(List<Profile> profileList, List<Record> recordList) throws IOException {//Adds new Profile to profileCSV.csv
+    public Profile addToProfileCSV() throws IOException {//Adds new Profile to profileCSV.csv
         System.out.println("Profile not found");
         System.out.println("Please enter your UserName");
         String file = "ProfileCSV.csv";
@@ -110,34 +113,46 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return newProfile;
     }
 
-    public List<Record> getUndecidedTitles(List<Profile> profileList,List<Record> recordList) throws IOException {
-        List<Record> undecidedTitles = new ArrayList<>();
-        Profile tempProfile = new Profile();
-        Record tempRecord = new Record();
-        System.out.println("Please enter your Username");
-        Scanner scnr = new Scanner(System.in);
-        String inputName = scnr.nextLine();
-        String fileName = inputName + "'s Undecided Titles.csv";
-        System.out.println("Looking for existing profile...");
 
-        boolean existingProfile = tempProfile.checkExistingProfile(profileList,inputName);
-
-        if (!existingProfile){
-           addToProfileCSV(profileList,recordList);
-        }
-        else{
-            undecidedTitles = readCSV(fileName);
-            for (int i = 0; i < recordList.size();i++){
-//                System.out.println(tempRecord.toCSV(recordList,i)); // for testing in case of failures.
-            }
-        }
-        return undecidedTitles;
-    }
+//    public List<Record> getUndecidedTitles(List<Record> recordList) throws IOException {
+//        List<Record> undecidedTitles = new ArrayList<>();
+//        Profile tempProfile = new Profile();
+//        System.out.println("Please enter your Username");
+//        Scanner scnr = new Scanner(System.in);
+//        String inputName = scnr.nextLine();
+//        String fileName = inputName + "'s Undecided Titles.csv";
+//        System.out.println("Looking for existing profile...");
+//
+//        boolean existingProfile = checkExistingProfile(inputName);
+//
+//        if (!existingProfile){
+//           addToProfileCSV(recordList);
+//        }
+//        else{
+//            undecidedTitles = readCSV(fileName);
+////            for (int i = 0; i < recordList.size();i++){
+////                System.out.println(tempRecord.toCSV(recordList,i)); // for testing in case of failures.
+////            }
+//        }
+//        return undecidedTitles;
+//    }
 
     public void createCsv(String userName, List<Record> recordList){
         String csvTag = ".csv";
         String file = userName + "'s Undecided Titles" + csvTag;
         writeCSV(file, recordList);
+    }
+
+    public boolean checkExistingProfile(String inputName){
+        boolean results = false;
+        for (int i = 0;i < profileList.size();i++){
+            if (profileList.get(i).userName.contains(inputName)) {
+                results = true;
+                System.out.println("Profile found!!");
+                break;
+            }
+        }
+        return results;
     }
 
     public static Singleton getInstance() {
@@ -146,3 +161,5 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return single_instance;
     }
     }
+
+    //Create attribute inside of singleton constructer that Keeps the profileList.

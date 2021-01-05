@@ -3,7 +3,6 @@ import java.util.List;
 import java.util.Scanner;
 
 class Profile {
-    Singleton singleton = Singleton.getInstance();
     String userName;
     List<Record> likedTitles;
     List<Record> dislikedTitles;
@@ -12,16 +11,12 @@ class Profile {
     String userID;
     int selectID;
 
-//    int pairCode;
-
-
     public Profile(String userName, String userID){
         this.dislikedTitles = dislikedTitles;
         this.undecidedTitles = undecidedTitles;
         this.likedTitles = likedTitles;
         this.userName = userName;
         this.genreInterests = genreInterests;
-//        this.pairCode = pairCode;
         this.userID = userID;
     }
     public Profile(){
@@ -30,7 +25,6 @@ class Profile {
         this.likedTitles = likedTitles;
         this.userName = userName;
         this.genreInterests = genreInterests;
-//        this.pairCode = pairCode;
         this.userID = userID;
         this.selectID = selectID;
     }
@@ -58,17 +52,8 @@ class Profile {
         return result;
     }
 
-
-    public boolean checkExistingProfile(List<Profile> profileList, String inputName){
-        boolean results = false;
-        for (int i = 0;i < profileList.size();i++){
-            if (profileList.get(i).userName.contains(inputName)) {
-                results = true;
-                System.out.println("Profile found!!");
-                break;
-            }
-        }
-        return results;
-    }
+   public void setUndecidedTitles(List<Record> recordList){
+        undecidedTitles = recordList;
+   }
 }
 
