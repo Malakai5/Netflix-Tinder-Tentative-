@@ -113,30 +113,6 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return newProfile;
     }
 
-
-//    public List<Record> getUndecidedTitles(List<Record> recordList) throws IOException {
-//        List<Record> undecidedTitles = new ArrayList<>();
-//        Profile tempProfile = new Profile();
-//        System.out.println("Please enter your Username");
-//        Scanner scnr = new Scanner(System.in);
-//        String inputName = scnr.nextLine();
-//        String fileName = inputName + "'s Undecided Titles.csv";
-//        System.out.println("Looking for existing profile...");
-//
-//        boolean existingProfile = checkExistingProfile(inputName);
-//
-//        if (!existingProfile){
-//           addToProfileCSV(recordList);
-//        }
-//        else{
-//            undecidedTitles = readCSV(fileName);
-////            for (int i = 0; i < recordList.size();i++){
-////                System.out.println(tempRecord.toCSV(recordList,i)); // for testing in case of failures.
-////            }
-//        }
-//        return undecidedTitles;
-//    }
-
     public void createCsv(String userName, List<Record> recordList){
         String csvTag = ".csv";
         String file = userName + "'s Undecided Titles" + csvTag;
