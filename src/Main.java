@@ -101,14 +101,6 @@ public class Main {
 
         profile.setUndecidedTitles(profile.likeOrDislike(profile.undecidedTitles));
 
-        for (int i = 0; i < recordList.size();i++){
-            Record tempRecord = new Record();
-            System.out.println(tempRecord.toCSV(profile.likedTitles,i));
-        }
-        for (int i = 0; i < recordList.size();i++){
-            Record tempRecord = new Record();
-            System.out.println(tempRecord.toCSV(profile.dislikedTitles,i));
-        }
     }
 }
 

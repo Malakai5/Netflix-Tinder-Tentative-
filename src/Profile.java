@@ -60,7 +60,7 @@ class Profile {
 
         Record tempRecord = new Record();
         Scanner scnr = new Scanner(System.in);
-        List<Record> newUndecidedList = undecidedList;
+        List<Record> newUndecidedList = new ArrayList<>(undecidedList);
         System.out.println("Are you interested in this title?");
         System.out.println("Please enter: '1' for YES, '2' for NO, '3' to stop");
 
