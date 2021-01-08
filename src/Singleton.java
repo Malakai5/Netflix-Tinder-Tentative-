@@ -6,12 +6,19 @@ public class Singleton { // Used to read CSV file on initiation and never need t
     private static final String COMMA_REGEX_DELIMITER = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
     private static Singleton single_instance = null;
     List<Profile> profileList;
-    List<Record> recordList;
+    List<Record> originalRecordList;
+    Profile profile;
+    List<Record> undecidedTitles;
+    List<Record> likedTitles;
+    List<Record> dislikedTitles;
 
     private Singleton() {
         this.profileList = readProfileCSV();
-        this.recordList = readCSV("Netflix(Original!!).csv");
-
+        this.originalRecordList = readCSV("Netflix(Original!!).csv");
+        this.profile = new Profile();
+        this.undecidedTitles = profile.undecidedTitles;
+        this.likedTitles = profile.likedTitles;
+        this.dislikedTitles = profile.dislikedTitles;;
 
     }
 
@@ -74,7 +81,7 @@ public class Singleton { // Used to read CSV file on initiation and never need t
             while ((line = br.readLine()) != null){
                 data = line.split(COMMA_REGEX_DELIMITER);
 
-                String userName = data[0];
+                String userName = data[0].toLowerCase();
                 String userID = data[1];
 
                 Profile currentProfile = new Profile(userName,userID);
@@ -87,7 +94,6 @@ public class Singleton { // Used to read CSV file on initiation and never need t
     }
 
     public Profile addToProfileCSV() throws IOException {//Adds new Profile to profileCSV.csv
-        System.out.println("Profile not found");
         System.out.println("Please enter your UserName");
         String file = "ProfileCSV.csv";
         Profile newProfile = new Profile();
@@ -95,7 +101,7 @@ public class Singleton { // Used to read CSV file on initiation and never need t
 
         newProfile = newProfile.makeNewProfile(profileList);
 
-        createCsv(newProfile.userName, recordList);//Creates the undecided list for new Profiles.
+        createCsv(newProfile.userName.toLowerCase(), originalRecordList);//Creates the undecided list for new Profiles.
 
         try (BufferedWriter br = new BufferedWriter(new FileWriter(file))){
 
@@ -115,7 +121,7 @@ public class Singleton { // Used to read CSV file on initiation and never need t
 
     public void createCsv(String userName, List<Record> recordList){
         String csvTag = ".csv";
-        String file = userName + "'s Undecided Titles" + csvTag;
+        String file = userName.toLowerCase() + "'s Undecided Titles" + csvTag;
         writeCSV(file, recordList);
     }
 
@@ -124,7 +130,7 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         for (int i = 0;i < profileList.size();i++){
             if (profileList.get(i).userName.contains(inputName)) {
                 results = true;
-                System.out.println("Profile found!!");
+                System.out.println("Profile found!!\n");
                 break;
             }
         }
@@ -138,4 +144,4 @@ public class Singleton { // Used to read CSV file on initiation and never need t
     }
     }
 
-    //Create attribute inside of singleton constructer that Keeps the profileList.
+    //Create attribute inside of singleton constructor that Keeps the profileList.

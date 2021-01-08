@@ -62,7 +62,7 @@ class Profile {
         Scanner scnr = new Scanner(System.in);
         List<Record> newUndecidedList = new ArrayList<>(undecidedList);
         System.out.println("Are you interested in this title?");
-        System.out.println("Please enter: '1' for YES, '2' for NO, '3' to stop");
+        System.out.println("Please enter: '1' for YES, '2' for NO, '3' to stop\n");
 
         for (int i = 1;i < undecidedList.size();i++){
 
@@ -70,23 +70,22 @@ class Profile {
             int choice = scnr.nextInt();
 
             if (choice == 1){
-                System.out.println("That's a Like!!");
+                System.out.println("That's a Like!!\n");
                 likedTitles.add(undecidedList.get(i));
                 newUndecidedList.remove(i);
             }
             if (choice == 2){
-                System.out.println("Nah that ones Boring");
+                System.out.println("Nah that ones Boring\n");
                 dislikedTitles.add(undecidedList.get(i));
                 newUndecidedList.remove(i);
             }
             if (choice == 3) {
-                System.out.println("Alright we'll stop here");
+                System.out.println("Alright we'll stop here\n");
                 break;
             }
             else{
                 System.out.println("Please enter numbers 1,2,or 3");
             }
-            //Add in the elif statements.
 
         }
 

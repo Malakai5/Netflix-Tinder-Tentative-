@@ -36,7 +36,19 @@ class Record {
         String yearMade = recordList.get(i).yearMade;
         String score = recordList.get(i).score;
 
-        String result = titleName + "," + tvRating + "," + genre + "," + titleId + "," + yearMade + "," + score + "\n";
+        String result = titleName.toLowerCase() + "," + tvRating + "," + genre + "," + titleId + "," + yearMade + "," + score + "\n";
+        return result;
+    }
+
+    public String toCSVSingle(Record record){
+        String titleName = record.titleName;
+        String tvRating = record.tvRating;
+        String genre = record.genre;
+        String titleId = record.titleId;
+        String yearMade = record.yearMade;
+        String score = record.score;
+
+        String result = titleName.toLowerCase() + "," + tvRating + "," + genre + "," + titleId + "," + yearMade + "," + score + "\n";
         return result;
     }
 
