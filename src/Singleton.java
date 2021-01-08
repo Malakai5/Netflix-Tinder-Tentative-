@@ -94,12 +94,13 @@ public class Singleton { // Used to read CSV file on initiation and never need t
     }
 
     public Profile addToProfileCSV() throws IOException {//Adds new Profile to profileCSV.csv
-        System.out.println("Please enter your UserName");
+        System.out.println("Please enter your UserName\n");
         String file = "ProfileCSV.csv";
         Profile newProfile = new Profile();
         Profile tempProfile = new Profile();
 
         newProfile = newProfile.makeNewProfile(profileList);
+        System.out.println("Profile has been Created!\n");
 
         createCsv(newProfile.userName.toLowerCase(), originalRecordList);//Creates the undecided list for new Profiles.
 

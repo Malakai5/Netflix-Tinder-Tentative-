@@ -83,66 +83,80 @@ public class Main {
         // Get a selection from user
         // Handle operation given by user
         //}
-        while (setupComplete = false) {
-
-    }
-        System.out.println("Please enter your Username");
-
-
         Scanner scnr = new Scanner(System.in);
-        String inputName = scnr.nextLine().toLowerCase();
-        String fileName = inputName + "'s Undecided Titles.csv";
 
-        profile.setUserName(inputName.toLowerCase());
+        while (!setupComplete) {
+
+            System.out.println("Please enter your Username");
+
+            String inputName = scnr.nextLine().toLowerCase();
+
+            String fileName = inputName + "'s Undecided Titles.csv";
+
+            profile.setUserName(inputName.toLowerCase());
 
 
-        System.out.println("Looking for existing profile...\n");
+            System.out.println("Looking for existing profile...\n");
 
-        boolean existingProfile = singleton.checkExistingProfile(inputName);
-        if (!existingProfile) {
-            System.out.println("Profile not found...\n");
-            System.out.println("Would you like to make a new Profile?");
-            System.out.println("enter '1' for YES or '2' for NO\n");
-            int newProfileChoice = scnr.nextInt();
+            boolean existingProfile = singleton.checkExistingProfile(inputName);
+            if (!existingProfile) {
+                System.out.println("Profile not found...\n");
+                System.out.println("Would you like to make a new Profile?");
+                System.out.println("enter '1' for YES or '2' for NO\n");
+                int newProfileChoice = scnr.nextInt();
 
-            if (newProfileChoice == 1) {
-                profile = singleton.addToProfileCSV();
-                profile.setUndecidedTitles(originalRecordList);
-
+                if (newProfileChoice == 1) {
+                    profile = singleton.addToProfileCSV();
+                    profile.setUndecidedTitles(originalRecordList);
+                    setupComplete = true;
+                }
+                else{
+                    scnr.nextLine();
+                    setupComplete = false;
+                }
+            }
+            if (existingProfile) {
+                profile.setUndecidedTitles(singleton.readCSV(fileName));
+                setupComplete = true;
             }
         }
-        if (existingProfile){
-            profile.setUndecidedTitles(singleton.readCSV(fileName));
 
-        }
 
         profile.setUndecidedTitles(profile.likeOrDislike(profile.undecidedTitles));
 
-        System.out.println("press '1' to view titles you're interested in");
-        System.out.println("Press '2' to view titles you don't like");
-        System.out.println("Press '3' to exit out of the App\n");
+        boolean menuOptions = false;
 
-        int menuChoice = scnr.nextInt();
+        while (!menuOptions) {
 
-        if (menuChoice == 1){
-            for (int i = 0; i < profile.likedTitles.size();i++){
-                System.out.println(profile.likedTitles.get(i).toCSVSingle(profile.likedTitles.get(i)));
-            }
-            System.out.println("Press '1' to search a title by name");
-            System.out.println("press '2' to go to the previous menu\n");
+            System.out.println("press '1' to view titles you're interested in");
+            System.out.println("Press '2' to exit out of the App\n");
 
-            int likedMenuChoices = scnr.nextInt();
-            scnr.nextLine();
-                if (likedMenuChoices == 1){
+            int menuChoice = scnr.nextInt();
+
+            if (menuChoice == 1) {
+                for (int i = 0; i < profile.likedTitles.size(); i++) {
+                    System.out.println(profile.likedTitles.get(i).toCSVSingle(profile.likedTitles.get(i)));
+                }
+                System.out.println("Press '1' to search a title by name");
+                System.out.println("press '2' to go to the previous menu\n");
+
+                int likedMenuChoices = scnr.nextInt();
+                scnr.nextLine();
+                if (likedMenuChoices == 1) {
                     String searchName = scnr.nextLine().toLowerCase();
 
-                    for (int i = 0; i < profile.likedTitles.size();i++){
-                        if (profile.likedTitles.get(i).titleName.contains(searchName)){
+                    for (int i = 0; i < profile.likedTitles.size(); i++) {
+                        if (profile.likedTitles.get(i).titleName.contains(searchName)) {
                             System.out.println(profile.likedTitles.get(i).toCSVSingle(profile.likedTitles.get(i)));
                         }
                     }
                 }
             }
+                if (menuChoice == 2){
+                    menuOptions = true;
+                    System.out.println("Goodbye");
+            }
+        }
     }
 }
 
