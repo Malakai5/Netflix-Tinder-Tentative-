@@ -16,6 +16,10 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         this.profileList = readProfileCSV();
         this.originalRecordList = readCSV("Netflix(Original!!).csv");
         this.profile = new Profile();
+        this.undecidedTitles = profile.undecidedTitles;
+        this.likedTitles = profile.likedTitles;
+        this.dislikedTitles = profile.dislikedTitles;
+
     }
 
     public List<Record> readCSV(String fileName){
@@ -98,9 +102,9 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         newProfile = newProfile.makeNewProfile(profileList);
         System.out.println("Profile has been Created!\n");
 
-        createUndecidedCsv(newProfile.userName.toLowerCase());//Creates the undecided list for new Profiles.
-        createLikedCsv(newProfile.userName.toLowerCase());
-        createDislikedCsv(newProfile.userName.toLowerCase());
+        createUndecidedCsv(newProfile.userName.toLowerCase(), originalRecordList);//Creates the undecided list for new Profiles.
+        createLikedCsv(newProfile.userName.toLowerCase(),likedTitles);
+        createDislikedCsv(newProfile.userName.toLowerCase(),dislikedTitles);
 
         try (BufferedWriter br = new BufferedWriter(new FileWriter(file))){
 
@@ -118,26 +122,26 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return newProfile;
     }
 
-    public void createUndecidedCsv(String userName){
+    public void createUndecidedCsv(String userName, List<Record> recordList){
         String csvTag = ".csv";
         String file = userName.toLowerCase() + "'s Undecided Titles" + csvTag;
-        writeCSV(file, originalRecordList);
+        writeCSV(file, recordList);
     }
-    public void createLikedCsv(String userName){
+    public void createLikedCsv(String userName, List<Record> recordList){
         String csvTag = ".csv";
         String file = userName.toLowerCase() + "'s Liked Titles" + csvTag;
-        writeCSV(file, likedTitles);
+        writeCSV(file, recordList);
     }
-    public void createDislikedCsv(String userName){
+    public void createDislikedCsv(String userName, List<Record> recordList){
         String csvTag = ".csv";
         String file = userName.toLowerCase() + "'s Disliked titles" + csvTag;
-        writeCSV(file, dislikedTitles);
+        writeCSV(file, recordList);
     }
 
     public boolean checkExistingProfile(String inputName){
         boolean results = false;
-        for (int i = 0;i < profileList.size();i++){
-            if (profileList.get(i).userName.contains(inputName)) {
+        for (Profile value : profileList) {
+            if (value.userName.contains(inputName)) {
                 results = true;
                 System.out.println("Profile found!!\n");
                 break;

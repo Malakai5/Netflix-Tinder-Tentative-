@@ -89,8 +89,8 @@ public class Main {
             String inputName = scnr.nextLine().toLowerCase();
 
             String undecidedListTag = inputName + "'s Undecided Titles.csv";
-            String likedListTag = inputName + "'s LikedListTag Titles.csv";
-            String dislikedListTag = inputName + "'s DislikedListTag Titles.csv";
+            String likedListTag = inputName + "'s Liked Titles.csv";
+            String dislikedListTag = inputName + "'s Disliked Titles.csv";
 
             profile.setUserName(inputName.toLowerCase());
 
@@ -122,6 +122,9 @@ public class Main {
             profile.setDislikedTitles(singleton.readCSV(dislikedListTag));
         }
 
+        String undecidedListTag = profile.userName + "'s Undecided Titles.csv";
+        String likedListTag = profile.userName + "'s Liked Titles.csv";
+        String dislikedListTag = profile.userName + "'s Disliked Titles.csv";
 
         profile.setUndecidedTitles(profile.likeOrDislike(profile.undecidedTitles));
 
@@ -155,6 +158,10 @@ public class Main {
             }
                 if (menuChoice == 2){
                     menuOptions = true;
+                    singleton.writeCSV(undecidedListTag,profile.undecidedTitles);
+                    singleton.writeCSV(likedListTag,profile.likedTitles);
+                    singleton.writeCSV(dislikedListTag,profile.dislikedTitles);
+
                     System.out.println("Goodbye");
             }
         }

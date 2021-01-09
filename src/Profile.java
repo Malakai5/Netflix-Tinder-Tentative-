@@ -70,7 +70,7 @@ class Profile {
         System.out.println("Are you interested in this title?");
         System.out.println("Please enter: '1' for YES, '2' for NO, '3' to stop\n");
 
-        for (int i = 1;i < undecidedList.size();i++){
+        for (int i = undecidedList.size()-1;i >= 0;i--){
 
             System.out.println(tempRecord.toCSV(undecidedList,i));
             int choice = scnr.nextInt();
@@ -92,7 +92,6 @@ class Profile {
             else{
                 System.out.println("Please enter numbers 1,2,or 3");
             }
-
         }
 
 
