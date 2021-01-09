@@ -102,7 +102,9 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         newProfile = newProfile.makeNewProfile(profileList);
         System.out.println("Profile has been Created!\n");
 
-        createCsv(newProfile.userName.toLowerCase(), originalRecordList);//Creates the undecided list for new Profiles.
+        createUndecidedCsv(newProfile.userName.toLowerCase());//Creates the undecided list for new Profiles.
+        createLikedCsv(newProfile.userName.toLowerCase());
+        createDislikedCsv(newProfile.userName.toLowerCase());
 
         try (BufferedWriter br = new BufferedWriter(new FileWriter(file))){
 
@@ -120,10 +122,20 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return newProfile;
     }
 
-    public void createCsv(String userName, List<Record> recordList){
+    public void createUndecidedCsv(String userName){
         String csvTag = ".csv";
         String file = userName.toLowerCase() + "'s Undecided Titles" + csvTag;
-        writeCSV(file, recordList);
+        writeCSV(file, originalRecordList);
+    }
+    public void createLikedCsv(String userName){
+        String csvTag = ".csv";
+        String file = userName.toLowerCase() + "'s Liked Titles" + csvTag;
+        writeCSV(file, likedTitles);
+    }
+    public void createDislikedCsv(String userName){
+        String csvTag = ".csv";
+        String file = userName.toLowerCase() + "'s Disliked titles" + csvTag;
+        writeCSV(file, dislikedTitles);
     }
 
     public boolean checkExistingProfile(String inputName){
