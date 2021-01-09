@@ -55,6 +55,12 @@ class Profile {
    public void setUserName(String inputName){
         userName = inputName;
    }
+   public void setLikedTitles(List<Record> recordList){
+        likedTitles = recordList;
+   }
+   public void setDislikedTitles(List<Record> recordList){
+        dislikedTitles = recordList;
+   }
 
     public List<Record> likeOrDislike(List<Record> undecidedList){
 

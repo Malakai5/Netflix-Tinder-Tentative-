@@ -15,9 +15,6 @@ public class Main {
         Singleton singleton = Singleton.getInstance();
         List<Record> originalRecordList = singleton.originalRecordList;
         Profile profile = singleton.profile;
-        List<Record> undecidedTitles = singleton.undecidedTitles;
-        List<Record> likedTitles = singleton.likedTitles;
-        List<Record> dislikedTitles = singleton.dislikedTitles;
 
 //        for (int i = 0; i < recordList.size();i++){
 //            System.out.println(tempRecord.toCSV(recordList,i));
@@ -91,7 +88,9 @@ public class Main {
 
             String inputName = scnr.nextLine().toLowerCase();
 
-            String fileName = inputName + "'s Undecided Titles.csv";
+            String undecidedListTag = inputName + "'s Undecided Titles.csv";
+            String likedListTag = inputName + "'s LikedListTag Titles.csv";
+            String dislikedListTag = inputName + "'s DislikedListTag Titles.csv";
 
             profile.setUserName(inputName.toLowerCase());
 
@@ -116,9 +115,11 @@ public class Main {
                 }
             }
             if (existingProfile) {
-                profile.setUndecidedTitles(singleton.readCSV(fileName));
+                profile.setUndecidedTitles(singleton.readCSV(undecidedListTag));
                 setupComplete = true;
             }
+            profile.setLikedTitles(singleton.readCSV(likedListTag));
+            profile.setDislikedTitles(singleton.readCSV(dislikedListTag));
         }
 
 

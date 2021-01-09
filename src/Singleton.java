@@ -16,10 +16,6 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         this.profileList = readProfileCSV();
         this.originalRecordList = readCSV("Netflix(Original!!).csv");
         this.profile = new Profile();
-        this.undecidedTitles = profile.undecidedTitles;
-        this.likedTitles = profile.likedTitles;
-        this.dislikedTitles = profile.dislikedTitles;;
-
     }
 
     public List<Record> readCSV(String fileName){
