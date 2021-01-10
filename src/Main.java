@@ -4,39 +4,11 @@ import java.util.Scanner;
 
 public class Main {
 
-    // Display the setup options to the user
-    public void DisplaySetupOptions()
-    {
-        //TODO::Display options
-    }
-
     public static void main(String[] args) throws IOException {
 
         Singleton singleton = Singleton.getInstance();
         List<Record> originalRecordList = singleton.originalRecordList;
         Profile profile = singleton.profile;
-
-//        for (int i = 0; i < recordList.size();i++){
-//            System.out.println(tempRecord.toCSV(recordList,i));
-//        }
-
-//        for (int i = 0;i < profileList.size();i++){
-//            System.out.print(tempProfile.toCSV(profileList,i));
-//        }
-
-//        System.out.println(tempProfile.checkExistingProfile(profileList));
-
-
-//        System.out.println(profile.userName);
-
-//        for (int i = 0; i < profile.dislikedTitles.size();i++){
-//            System.out.println(profile.dislikedTitles.get(i).toCSVSingle(profile.dislikedTitles.get(i)));
-//        }
-//
-//        for (int i = 0; i < profile.likedTitles.size();i++){
-//            System.out.println(profile.likedTitles.get(i).toCSVSingle(profile.likedTitles.get(i)));
-//        }
-
         //Have Singleton load all available profile data
 
         // Setup/Login Loop
@@ -80,6 +52,8 @@ public class Main {
         // Get a selection from user
         // Handle operation given by user
         //}
+
+        while (usingApp){
         Scanner scnr = new Scanner(System.in);
 
         while (!setupComplete) {
@@ -126,18 +100,23 @@ public class Main {
         String likedListTag = profile.userName + "'s Liked Titles.csv";
         String dislikedListTag = profile.userName + "'s Disliked Titles.csv";
 
-        profile.setUndecidedTitles(profile.likeOrDislike(profile.undecidedTitles));
 
-        boolean menuOptions = false;
+            boolean menuOptions = false;
 
-        while (!menuOptions) {
+            while (!menuOptions) {
 
-            System.out.println("press '1' to view titles you're interested in");
-            System.out.println("Press '2' to exit out of the App\n");
+                System.out.println("press '1' to 'Swipe' titles");
+                System.out.println("press '2' to view titles you're interested in");
+                System.out.println("Press '3' to exit out of the App\n");
 
-            int menuChoice = scnr.nextInt();
+                int menuChoice = scnr.nextInt();
 
-            if (menuChoice == 1) {
+                if (menuChoice == 1){
+                    profile.setUndecidedTitles(profile.likeOrDislike(profile.undecidedTitles));
+
+            }
+
+            if (menuChoice == 2) {
                 for (int i = 0; i < profile.likedTitles.size(); i++) {
                     System.out.println(profile.likedTitles.get(i).toCSVSingle(profile.likedTitles.get(i)));
                 }
@@ -147,6 +126,7 @@ public class Main {
                 int likedMenuChoices = scnr.nextInt();
                 scnr.nextLine();
                 if (likedMenuChoices == 1) {
+                    System.out.println("What is the name of the title?");
                     String searchName = scnr.nextLine().toLowerCase();
 
                     for (int i = 0; i < profile.likedTitles.size(); i++) {
@@ -156,14 +136,16 @@ public class Main {
                     }
                 }
             }
-                if (menuChoice == 2){
-                    menuOptions = true;
-                    singleton.writeCSV(undecidedListTag,profile.undecidedTitles);
-                    singleton.writeCSV(likedListTag,profile.likedTitles);
-                    singleton.writeCSV(dislikedListTag,profile.dislikedTitles);
+            if (menuChoice == 3) {
+                menuOptions = true;
+                singleton.writeCSV(undecidedListTag, profile.undecidedTitles);
+                singleton.writeCSV(likedListTag, profile.likedTitles);
+                singleton.writeCSV(dislikedListTag, profile.dislikedTitles);
 
-                    System.out.println("Goodbye");
+                usingApp = false;
+                System.out.println("Goodbye");
             }
+        }
         }
     }
 }

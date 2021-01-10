@@ -11,19 +11,10 @@ class Profile {
     int selectID;
 
     public Profile(String userName, String userID){
-        this.dislikedTitles = dislikedTitles;
-        this.undecidedTitles = undecidedTitles;
-        this.likedTitles = likedTitles;
         this.userName = userName;
         this.userID = userID;
     }
     public Profile(){
-        this.dislikedTitles = dislikedTitles;
-        this.undecidedTitles = undecidedTitles;
-        this.likedTitles = likedTitles;
-        this.userName = userName;
-        this.userID = userID;
-        this.selectID = selectID;
     }
 
 
@@ -45,8 +36,7 @@ class Profile {
         String userName = profileList.get(i).userName;
         String userID = profileList.get(i).userID;
 
-        String result = userName + "," + userID + "\n";
-        return result;
+        return userName + "," + userID + "\n";
     }
 
    public void setUndecidedTitles(List<Record> recordList){
@@ -93,9 +83,10 @@ class Profile {
                 System.out.println("Please enter numbers 1,2,or 3");
             }
         }
-
-
         return newUndecidedList;
     }
+
+    //TODO:
+    //Create a method for finding a profile by user ID and then uploading the Liked Lists.
 }
 

@@ -20,12 +20,6 @@ class Record {
     }
 
     public Record(){
-        this.titleId = titleId;
-        this.titleName = titleName;
-        this.yearMade = yearMade;
-        this.genre = genre;
-        this.tvRating = tvRating;
-        this.score = score;
     }
 
     public String toCSV(List<Record> recordList, int i) {
@@ -36,8 +30,7 @@ class Record {
         String yearMade = recordList.get(i).yearMade;
         String score = recordList.get(i).score;
 
-        String result = titleName.toLowerCase() + "," + tvRating + "," + genre + "," + titleId + "," + yearMade + "," + score + "\n";
-        return result;
+        return titleName.toLowerCase() + "," + tvRating + "," + genre + "," + titleId + "," + yearMade + "," + score + "\n";
     }
 
     public String toCSVSingle(Record record){
@@ -48,8 +41,7 @@ class Record {
         String yearMade = record.yearMade;
         String score = record.score;
 
-        String result = titleName.toLowerCase() + "," + tvRating + "," + genre + "," + titleId + "," + yearMade + "," + score + "\n";
-        return result;
+        return titleName.toLowerCase() + "," + tvRating + "," + genre + "," + titleId + "," + yearMade + "," + score + "\n";
     }
 
 }
