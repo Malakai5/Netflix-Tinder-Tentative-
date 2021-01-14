@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -81,6 +82,7 @@ public class Main {
                 if (newProfileChoice == 1) {
                     profile = singleton.addToProfileCSV();
                     profile.setUndecidedTitles(originalRecordList);
+                    Collections.shuffle(profile.undecidedTitles);
                     setupComplete = true;
                 }
                 else{
@@ -107,13 +109,12 @@ public class Main {
 
                 System.out.println("press '1' to 'Swipe' titles");
                 System.out.println("press '2' to view titles you're interested in");
-                System.out.println("Press '3' to exit out of the App\n");
-
+                System.out.println("Press '3' to pair likes Lists");
+                System.out.println("Press '4' to exit out of the App\n");
                 int menuChoice = scnr.nextInt();
 
                 if (menuChoice == 1){
                     profile.setUndecidedTitles(profile.likeOrDislike(profile.undecidedTitles));
-
             }
 
             if (menuChoice == 2) {
@@ -136,7 +137,31 @@ public class Main {
                     }
                 }
             }
-            if (menuChoice == 3) {
+
+            if (menuChoice == 3){
+                boolean userNameFound = false;
+                while (!userNameFound){
+                    System.out.println("Please enter your Username");
+                    scnr.nextLine();
+                    String inputName = scnr.nextLine().toLowerCase();
+                    System.out.println("Looking for existing profile...\n");
+                    System.out.println(inputName);
+                    String otherLikedList = inputName + "'s Liked Titles.csv";
+
+                    boolean existingProfile = singleton.checkExistingProfile(inputName);
+                    if (!existingProfile){
+                        System.out.println("Please enter a valid Username\n");
+                    }
+                    if (existingProfile){
+                        List<Record> secondLikedList = singleton.readCSV(otherLikedList);
+
+                        profile.getSharedList(profile.likedTitles,secondLikedList);
+                        userNameFound = true;
+                    }
+                }
+            }
+
+            if (menuChoice == 4) {
                 menuOptions = true;
                 singleton.writeCSV(undecidedListTag, profile.undecidedTitles);
                 singleton.writeCSV(likedListTag, profile.likedTitles);
