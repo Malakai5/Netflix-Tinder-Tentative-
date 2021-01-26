@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -10,97 +12,28 @@ public class Main {
         Singleton singleton = Singleton.getInstance();
         List<Record> originalRecordList = singleton.originalRecordList;
         Profile profile = singleton.profile;
-        //Have Singleton load all available profile data
-
-        // Setup/Login Loop
-        // Options
-        // 1. Login
-        // 2. New User
-        // 3. Quit App
         boolean setupComplete = false;
-        //while(!setupComplete)
-        //{
-        // TODO:
-        // A. Display Options 1-3
-        //    DisplaySetupOptions();
-        // B. Get a selection from user
-        //    Read System In
-        // C. Handle operation given by user
-        //    Handle Operation as an integer
-        //    When option 1 or 2 is handled with success, setupComplete must be set to true so we
-        //    stop looping.
-        //    1. Login - Use singleton to attempt to find profile with that username.
-        //               If profile not found, inform user and continue loop so another option is requested.
-        //               If profile found, have a member variable in singleton called currentUser which is
-        //               a Profile object and set it to that profile, this is our success case.
-        //    2. New User - Use singleton to verify this username is not already taken.
-        //                  If username taken, inform user and continue loop so another option is requested.
-        //                  If username is available, have singleton make that profile, this is our success case.
-        //                  currentUser in singleton is set to this new profile.
-        //    3. quit - Have your program quit
-        //              System.exit(0);
-        //}
-
-        // Main Loop, we only get here is initial setup is complete
-        // Options
-        // 1. Display Liked List
-        // 2. Swipe through titles
-        // 3. Quit App
         boolean usingApp = true;
-        //while(usingApp)
-        //{
-        // Display Options 1-3
-        // Get a selection from user
-        // Handle operation given by user
-        //}
+        AppOperations newSetup = new AppOperations();
+
+
+
+
 
         while (usingApp){
         Scanner scnr = new Scanner(System.in);
 
-        while (!setupComplete) {
+            String undecidedListTag = profile.userName + "'s Undecided Titles.csv";
+            String likedListTag = profile.userName + "'s Liked Titles.csv";
+            String dislikedListTag = profile.userName + "'s Disliked Titles.csv";
 
-            System.out.println("Please enter your Username");
-
-            String inputName = scnr.nextLine().toLowerCase();
-
-            String undecidedListTag = inputName + "'s Undecided Titles.csv";
-            String likedListTag = inputName + "'s Liked Titles.csv";
-            String dislikedListTag = inputName + "'s Disliked Titles.csv";
-
-            profile.setUserName(inputName.toLowerCase());
-
-
-            System.out.println("Looking for existing profile...\n");
-
-            boolean existingProfile = singleton.checkExistingProfile(inputName);
-            if (!existingProfile) {
-                System.out.println("Profile not found...\n");
-                System.out.println("Would you like to make a new Profile?");
-                System.out.println("enter '1' for YES or '2' for NO\n");
-                int newProfileChoice = scnr.nextInt();
-
-                if (newProfileChoice == 1) {
-                    profile = singleton.addToProfileCSV();
-                    profile.setUndecidedTitles(originalRecordList);
-                    Collections.shuffle(profile.undecidedTitles);
-                    setupComplete = true;
-                }
-                else{
-                    scnr.nextLine();
-                    setupComplete = false;
-                }
-            }
-            if (existingProfile) {
-                profile.setUndecidedTitles(singleton.readCSV(undecidedListTag));
-                setupComplete = true;
-            }
-            profile.setLikedTitles(singleton.readCSV(likedListTag));
-            profile.setDislikedTitles(singleton.readCSV(dislikedListTag));
+            while (!setupComplete) {
+            setupComplete = newSetup.getUsernameCreated();
         }
+            for (int i = 0; i < profile.undecidedTitles.size();i++){
+                System.out.println(profile.undecidedTitles.get(i).toCSVSingle(profile.undecidedTitles.get(i)));
+            }
 
-        String undecidedListTag = profile.userName + "'s Undecided Titles.csv";
-        String likedListTag = profile.userName + "'s Liked Titles.csv";
-        String dislikedListTag = profile.userName + "'s Disliked Titles.csv";
 
 
             boolean menuOptions = false;
@@ -163,9 +96,9 @@ public class Main {
 
             if (menuChoice == 4) {
                 menuOptions = true;
-                singleton.writeCSV(undecidedListTag, profile.undecidedTitles);
-                singleton.writeCSV(likedListTag, profile.likedTitles);
-                singleton.writeCSV(dislikedListTag, profile.dislikedTitles);
+//                singleton.writeCSV(undecidedListTag, profile.undecidedTitles);
+//                singleton.writeCSV(likedListTag, profile.likedTitles);
+//                singleton.writeCSV(dislikedListTag, profile.dislikedTitles);
 
                 usingApp = false;
                 System.out.println("Goodbye");
@@ -174,4 +107,3 @@ public class Main {
         }
     }
 }
-

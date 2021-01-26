@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -88,8 +90,6 @@ class Profile {
         return newUndecidedList;
     }
 
-    //TODO:
-    //Create a method for finding a profile by user ID and then uploading the Liked Lists.
     public List<Record> getSharedList(List<Record> firstLikedList, List<Record> secondLikedList) {
         List<Record> sharedList = new ArrayList<>();
         for (int out = 0; out < firstLikedList.size(); out++) {

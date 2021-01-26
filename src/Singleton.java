@@ -12,7 +12,7 @@ public class Singleton { // Used to read CSV file on initiation and never need t
     List<Record> likedTitles;
     List<Record> dislikedTitles;
 
-    private Singleton() {
+    private Singleton() throws IOException {
         this.profileList = readProfileCSV();
         this.originalRecordList = readCSV("Netflix(Original!!).csv");
         this.profile = new Profile();
@@ -22,11 +22,44 @@ public class Singleton { // Used to read CSV file on initiation and never need t
 
     }
 
-    public List<Record> readCSV(String fileName){
+    public void headerWriter(String filename) throws IOException {
+        String headers;
+        headers = "TitleName,TvRating,Genre,TitleId,YearMade,Score \n";
+        BufferedWriter bw = null;
+        try {
+           bw = new BufferedWriter(new FileWriter(filename));
+            bw.write(headers);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (bw != null) {
+                bw.close();
+            }
+        }
+
+    }
+
+    public void makeEmptyCSVs() throws IOException {
+        String undecidedList = profile.userName + "'s Undecided Titles.csv";
+        String likedList = profile.userName + "'s Liked Titles.csv";
+        String dislikedList = profile.userName + "'s Disliked Titles.csv";
+
+        headerWriter(undecidedList);
+        headerWriter(likedList);
+        headerWriter(dislikedList);
+
+        writeCSV(undecidedList,originalRecordList);
+
+    }
+
+    public List<Record> readCSV(String fileName) throws IOException {
         String[] data;
         List<Record> recordList = new ArrayList<>();
+        BufferedReader br = null;
 
-        try (BufferedReader br =  new BufferedReader(new FileReader(fileName))) { //Reads the initial file
+        try {
+            br =  new BufferedReader(new FileReader(fileName)); //Reads the initial file
 
             String line;
             while((line = br.readLine()) != null) {
@@ -41,9 +74,19 @@ public class Singleton { // Used to read CSV file on initiation and never need t
 
                 Record currentRecords = new Record(titleName,tvRating,genre,titleId,yearMade,score);
                 recordList.add(currentRecords);
+
             }
+
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Titles lost...\n" +
+                    "Creating new titles lists\n");
+            makeEmptyCSVs();
+            profile.setUndecidedTitles(originalRecordList);
+
+        } finally {
+            if (br != null){
+                    br.close();
+            }
         }
         return recordList;
     }
@@ -75,7 +118,10 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         List<Profile> profileList = new ArrayList<>();
         String[] data;
 
-        try (BufferedReader br =  new BufferedReader(new FileReader(file))) {
+        BufferedReader br = null;
+        try {
+            br =  new BufferedReader(new FileReader(file));
+
             String line;
 
             while ((line = br.readLine()) != null){
@@ -89,6 +135,15 @@ public class Singleton { // Used to read CSV file on initiation and never need t
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (br != null){
+                try {
+
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return profileList;
     }
@@ -150,11 +205,9 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return results;
     }
 
-    public static Singleton getInstance() {
+    public static Singleton getInstance() throws IOException {
         if (single_instance == null)
             single_instance = new Singleton();
         return single_instance;
     }
     }
-
-    //Create attribute inside of singleton constructor that Keeps the profileList.
