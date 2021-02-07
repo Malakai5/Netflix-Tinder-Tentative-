@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Singleton { // Used to read CSV file on initiation and never need to read it again.
@@ -24,7 +25,7 @@ public class Singleton { // Used to read CSV file on initiation and never need t
 
     public void headerWriter(String filename) throws IOException {
         String headers;
-        headers = "TitleName,TvRating,Genre,TitleId,YearMade,Score \n";
+        headers = "TitleName,YearMade,Genre,TvRating,TitleId,Score \n";
         BufferedWriter bw = null;
         try {
            bw = new BufferedWriter(new FileWriter(filename));
@@ -48,8 +49,10 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         headerWriter(undecidedList);
         headerWriter(likedList);
         headerWriter(dislikedList);
+        List<Record> jumbledList = originalRecordList;
+        Collections.shuffle(jumbledList);
 
-        writeCSV(undecidedList,originalRecordList);
+        writeCSV(undecidedList, jumbledList);
 
     }
 
@@ -57,6 +60,7 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         String[] data;
         List<Record> recordList = new ArrayList<>();
         BufferedReader br = null;
+        
 
         try {
             br =  new BufferedReader(new FileReader(fileName)); //Reads the initial file
@@ -98,7 +102,7 @@ public class Singleton { // Used to read CSV file on initiation and never need t
 
             String headers;
 
-            headers = "TitleName,TvRating,Genre,TitleId,YearMade,Score \n";
+            headers = "TitleName,YearMade,Genre,TvRating,TitleId,Score \n";
             br.write(headers);
 
             for (int i = 0;i < recordList.size();i++){
@@ -177,17 +181,17 @@ public class Singleton { // Used to read CSV file on initiation and never need t
         return newProfile;
     }
 
-    public void createUndecidedCsv(String userName, List<Record> recordList){
+    private void createUndecidedCsv(String userName, List<Record> recordList){
         String csvTag = ".csv";
         String file = userName.toLowerCase() + "'s Undecided Titles" + csvTag;
         writeCSV(file, recordList);
     }
-    public void createLikedCsv(String userName, List<Record> recordList){
+    private void createLikedCsv(String userName, List<Record> recordList){
         String csvTag = ".csv";
         String file = userName.toLowerCase() + "'s Liked Titles" + csvTag;
         writeCSV(file, recordList);
     }
-    public void createDislikedCsv(String userName, List<Record> recordList){
+    private void createDislikedCsv(String userName, List<Record> recordList){
         String csvTag = ".csv";
         String file = userName.toLowerCase() + "'s Disliked titles" + csvTag;
         writeCSV(file, recordList);

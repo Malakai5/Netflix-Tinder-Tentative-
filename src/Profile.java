@@ -41,6 +41,13 @@ class Profile {
         return userName + "," + userID + "\n";
     }
 
+    public String toCSVSingle(Profile profile){
+        String userName = profile.userName;
+        String userID = profile.userID;
+
+        return userName + "," + userID + "\n";
+    }
+
     public void setUndecidedTitles(List<Record> recordList) {
         undecidedTitles = recordList;
     }
@@ -92,10 +99,10 @@ class Profile {
 
     public List<Record> getSharedList(List<Record> firstLikedList, List<Record> secondLikedList) {
         List<Record> sharedList = new ArrayList<>();
-        for (int out = 0; out < firstLikedList.size(); out++) {
-            for (int in = 0;in < secondLikedList.size(); in++) {
-                if (firstLikedList.get(out).titleName.equals(secondLikedList.get(in).titleName)){
-                    sharedList.add(secondLikedList.get(in));
+        for (Record value : firstLikedList) {
+            for (Record record : secondLikedList) {
+                if (value.titleName.equals(record.titleName)) {
+                    sharedList.add(record);
                 }
             }
         }
