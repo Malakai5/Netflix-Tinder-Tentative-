@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 
         public AppOperations() throws IOException {
-            this.sharedList = sharedList;
 
 
         }
@@ -68,6 +67,8 @@ import java.util.Scanner;
                 }
             } catch (IOException ignored){
             }
+            profile.setUndecidedTitles(singleton.readCSV(undecidedListTag));
+            Collections.shuffle(profile.undecidedTitles);
             profile.setLikedTitles(singleton.readCSV(likedListTag));
             profile.setDislikedTitles(singleton.readCSV(dislikedListTag));
 
