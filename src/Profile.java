@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-class Profile {
+class Profile{
     String userName;
     List<Record> likedTitles = new ArrayList<>();
     List<Record> dislikedTitles = new ArrayList<>();

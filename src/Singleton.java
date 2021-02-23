@@ -13,7 +13,7 @@ public class Singleton { // Used to read CSV file on initiation and never need t
     List<Record> likedTitles;
     List<Record> dislikedTitles;
 
-    private Singleton() throws IOException {
+    public Singleton() throws IOException {
         this.profileList = readProfileCSV();
         this.originalRecordList = readCSV("Netflix(Original!!).csv");
         this.profile = new Profile();
@@ -23,20 +23,14 @@ public class Singleton { // Used to read CSV file on initiation and never need t
 
     }
 
-    public void headerWriter(String filename) throws IOException {
+    protected void headerWriter(String filename) throws IOException {
         String headers;
         headers = "TitleName,YearMade,Genre,TvRating,TitleId,Score \n";
-        BufferedWriter bw = null;
-        try {
-           bw = new BufferedWriter(new FileWriter(filename));
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
             bw.write(headers);
 
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            if (bw != null) {
-                bw.close();
-            }
         }
 
     }
@@ -59,14 +53,10 @@ public class Singleton { // Used to read CSV file on initiation and never need t
     public List<Record> readCSV(String fileName) throws IOException {
         String[] data;
         List<Record> recordList = new ArrayList<>();
-        BufferedReader br = null;
-        
-
-        try {
-            br =  new BufferedReader(new FileReader(fileName)); //Reads the initial file
-
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            //Reads the initial file
             String line;
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 data = line.split(COMMA_REGEX_DELIMITER);//Will split the lines into pieces
 
                 String titleName = data[0];
@@ -76,9 +66,8 @@ public class Singleton { // Used to read CSV file on initiation and never need t
                 String yearMade = data[4];
                 String score = data[5];
 
-                Record currentRecords = new Record(titleName,tvRating,genre,titleId,yearMade,score);
+                Record currentRecords = new Record(titleName, tvRating, genre, titleId, yearMade, score);
                 recordList.add(currentRecords);
-
             }
 
         } catch (IOException e) {
@@ -87,10 +76,6 @@ public class Singleton { // Used to read CSV file on initiation and never need t
             makeEmptyCSVs();
             profile.setUndecidedTitles(originalRecordList);
 
-        } finally {
-            if (br != null){
-                    br.close();
-            }
         }
         return recordList;
     }
