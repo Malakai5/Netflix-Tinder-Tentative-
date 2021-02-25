@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Profile extends CSVString{
+public class Profile extends Converter {
     String userName;
 
     public String getUserName() {
@@ -37,10 +37,10 @@ public class Profile extends CSVString{
 
     public Profile(String userName, String userID) {
         this.userName = userName;
-        this.userID = userID;
         this.selectID = Integer.parseInt(userID);
     }
 
-    public Profile() {
-    }
+
+
+
 }
