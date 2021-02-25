@@ -1,3 +1,3 @@
 public interface CSVImplement {
-    CSVReader CSV_READER = new CSVReader();
+    CSVUse CSV_READER = new CSVUse();
 }

@@ -1,15 +1,12 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSVReader {
+public class CSVUse {
+    protected class CSVReader {
     private static final String COMMA_DELIMITER = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
     protected List<Record> originalRecordList;
     protected List<Record> currentRecordList;
-
     protected List<Profile> profileList;
 
     public List<Record> getOriginalRecordList() {
@@ -21,8 +18,6 @@ public class CSVReader {
     public List<Profile> getProfileList() {
         return profileList;
     }
-
-
     private void setOriginalRecordList(List<Record> originalRecordList) {
         this.originalRecordList = originalRecordList;
     }
@@ -33,9 +28,7 @@ public class CSVReader {
         this.profileList = profileList;
     }
 
-
-
-    protected void readCSVtoRecord(String fileName) {
+    public void readCSVtoRecord(String fileName) {
         String[] data;
         List<Record> recordList = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
@@ -63,13 +56,59 @@ public class CSVReader {
             //Reads the initial file
             String line;
             while ((line = br.readLine()) != null) {
-            data = line.split(COMMA_DELIMITER);
-            Profile profile  = new Profile(data[0], data[1]);
-            profileList.add(profile);
-            setProfileList(profileList);
+                data = line.split(COMMA_DELIMITER);
+                Profile profile = new Profile(data[0], data[1]);
+                profileList.add(profile);
+                setProfileList(profileList);
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+}
+
+    protected class CSVWriter extends Converter {
+
+        public void writeRecordToCSV(String fileName, List<Record> recordList){
+            try (PrintWriter br = new PrintWriter( new FileWriter(fileName))) {
+                String headers;
+                headers = "TitleName,YearMade,Genre,TvRating,TitleId,Score \n";
+                br.write(headers);
+
+                for (int i = 0;i < recordList.size();i++){
+                    if (i != 0) {
+                        Record record = recordList.get(i);
+                        br.write(recordToString(record));
+                    }
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void writeProfileToCSV(String fileName, List<Profile> profileList){
+            try (PrintWriter br = new PrintWriter( new FileWriter(fileName))) {
+                String headers;
+                headers = "TitleName,YearMade,Genre,TvRating,TitleId,Score \n";
+                br.write(headers);
+
+                for (int i = 0;i < profileList.size();i++){
+                    if (i != 0) {
+                        Profile profile = profileList.get(i);
+                        br.write(profileToString(profile));
+                    }
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public String CSVtoString(){
+
+
+            return null;
         }
     }
 }
