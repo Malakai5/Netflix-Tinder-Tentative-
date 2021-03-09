@@ -40,6 +40,15 @@ public class Profile extends Converter {
         this.selectID = Integer.parseInt(userID);
     }
 
+    public Profile(String userName){
+        this.userName = userName;
+    }
+
+    public Profile createProfile(String userName, List<Profile> profileList){
+        Profile profile = new Profile(userName.toLowerCase());
+        profileList.add(profile);
+        return profile;
+    }
 
 
 
