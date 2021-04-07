@@ -1,4 +1,3 @@
-import javax.swing.event.ListDataEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +7,8 @@ public class CSVReader {
     private static CSVReader single_instance = null;
     private static final String COMMA_DELIMITER = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
 
-    private final List<Record> originalRecordList = readCSVtoRecord("TestCSVFile.csv");
-    private final List<Profile> mainProfileList = readCSVtoProfile("ProfileCSV.csv");
+    private final List<Record> originalRecordList = readRecordCSV("TestCSVFile.csv");
+    private final List<Profile> mainProfileList = readProfileCSV();
 
     public List<Record> currentRecordList;
     public List<Profile> profileList;
@@ -29,7 +28,7 @@ public class CSVReader {
     }
 
 
-    public List<Record> readCSVtoRecord(String fileName) {
+    public List<Record> readRecordCSV(String fileName) {
         String[] partsOfRecord;
         List<Record> recordList = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
@@ -46,16 +45,18 @@ public class CSVReader {
         return recordList;
     }
 
-    public List<Profile> readCSVtoProfile(String fileName) {
+    public List<Profile> readProfileCSV() {
         String[] data;
         List<Profile> profileList = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("ProfileList"))) {
             //Reads the initial file
             String line;
             while ((line = br.readLine()) != null) {
                 data = line.split(COMMA_DELIMITER);
-                Profile profile = new Profile(data[0], data[1]);
-                profileList.add(profile);
+                if (!data[0].equals("UserName")) {
+                    Profile profile = new Profile(data[0], Integer.parseInt(data[1]));
+                    profileList.add(profile);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

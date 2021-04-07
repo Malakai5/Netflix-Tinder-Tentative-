@@ -1,18 +1,18 @@
 public class Record {
     String titleName;
-    int titleId;
+    String titleId;
     String genre;
-    int yearMade;
+    String yearMade;
     String tvRating;
-    int score;
+    String score;
 
-    public Record(String titleName, String titleId, String genre, String yearMade, String tvRating, String score){
-        this.titleId = Integer.parseInt(titleId);
+    public Record(String titleName, String yearMade, String genre, String tvRating, String titleId, String score){
+        this.titleId = titleId;
         this.titleName = titleName;
-        this.yearMade = Integer.parseInt(yearMade);
+        this.yearMade = yearMade;
         this.genre = genre;
         this.tvRating = tvRating;
-        this.score = Integer.parseInt(score);
+        this.score = score;
     }
 
     public Record() {

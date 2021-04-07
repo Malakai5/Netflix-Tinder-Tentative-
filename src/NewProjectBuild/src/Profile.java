@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Profile extends Converter {
+public class Profile extends ProfileManipulator {
     String userName;
 
     public String getUserName() {
         return userName;
     }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -32,21 +33,24 @@ public class Profile extends Converter {
     List<Record> likedTitles = new ArrayList<>();
     List<Record> dislikedTitles = new ArrayList<>();
     List<Record> undecidedTitles = new ArrayList<>();
-    String userID;
-    int selectID;
-
-    public Profile(String userName, String userID) {
+    int userID;
+    public Profile(String userName, int userID) {
         this.userName = userName;
-        this.selectID = Integer.parseInt(userID);
+        this.userID = userID;
     }
 
     public Profile(String userName){
         this.userName = userName;
     }
 
+    public Profile(String userName, String UserID) {
+    }
+
     public Profile createProfile(String userName, List<Profile> profileList){
-        Profile profile = new Profile(userName.toLowerCase());
+        Profile profile = new Profile(userName.toLowerCase(),profileList.size() + 1);
+        assignCSVs(profile);
         profileList.add(profile);
+        writeProfileToCSV(profileList);
         return profile;
     }
 
