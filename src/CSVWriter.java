@@ -18,45 +18,26 @@ public class CSVWriter {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("File not found, please try again.");
         }
     }
 
-    protected void writeProfileCSV(Profile profile, List<Profile> profileList){
-        try (BufferedWriter br = new BufferedWriter(new FileWriter("ProfileList"))) {
+    protected void writeProfileCSV(Profile profile, List<Profile> profileList) {
+            try (BufferedWriter br = new BufferedWriter(new FileWriter("ProfileList"))) {
+                String headers;
+                headers = "UserName,UserID\n";
+                br.write(headers);
 
-            String headers;
-            headers = "UserName,UserID\n";
-
-            br.write(headers);
-
-            for (int i = 0; i < profileList.size(); i++) {
-                if (i != 0) {
-                    br.write(String.valueOf(profile.toCSV(profileList, i)));
+                for (int i = 0; i < profileList.size(); i++) {
+                    if (i != 0) {
+                        br.write(String.valueOf(profile.toCSV(profileList, i)));
+                    }
                 }
+            } catch (IOException e) {
+                System.out.println("File not found");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-    }
 
-    protected void createUndecidedCsv(String userName, List<Record> recordList) {
-        String csvTag = ".csv";
-        String file = userName.toLowerCase() + "'s Undecided Titles" + csvTag;
-        writeCSV(file, recordList);
-    }
-
-    protected void createLikedCsv(String userName, List<Record> recordList) {
-        String csvTag = ".csv";
-        String file = userName.toLowerCase() + "'s Liked Titles" + csvTag;
-        writeCSV(file, recordList);
-    }
-
-    protected void createDislikedCsv(String userName, List<Record> recordList) {
-        String csvTag = ".csv";
-        String file = userName.toLowerCase() + "'s Disliked titles" + csvTag;
-        writeCSV(file, recordList);
-    }
 
     protected void headerWriter(String filename) {
         String headers;

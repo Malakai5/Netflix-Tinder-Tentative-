@@ -27,15 +27,13 @@ public class CSVReader {
                 Record currentRecords = new Record(titleName, tvRating, genre, titleId, yearMade, score);
                 recordList.add(currentRecords);
             }
-
         } catch (IOException e) {
             System.out.println(fileName + " not found");
-
         }
         return recordList;
     }
 
-    public List<Profile> readProfileCSV() {// This Method seems to work Completely as intended
+    public List<Profile> readProfileCSV() {
         List<Profile> profileList = new ArrayList<>();
         String[] data;
         BufferedReader br = null;

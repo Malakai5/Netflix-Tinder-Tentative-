@@ -1,14 +1,20 @@
 import java.util.List;
 
-public class Main implements ProjectConstants{
+public class Main{
 
     public static void main(String[] args) {
 
-        List<Profile> profileList = SINGLETON.profileList;
-        Profile profile = SINGLETON.profile;
-        List<Record> originalRecordList = SINGLETON.originalRecordList;
+    ProfileSearcher ps = new ProfileSearcher();
+    Profile profile = new Profile();
 
-        originalRecordList.forEach(record -> System.out.println(record.toCSVSingle(record)));
+
+    ps.assignProfile(profile);
+
+        System.out.println(profile.userName);
+
+
+
+
 
 
 

@@ -21,19 +21,6 @@ class Profile{
     }
 
 
-    public Profile makeNewProfile(List<Profile> profileList) {// Method used to create new Profile for Singleton writeProfileCSV
-
-        Scanner scnr = new Scanner(System.in);
-        String userName = scnr.nextLine();
-        selectID = profileList.size();
-        String userID = Integer.toString(selectID);
-
-        Profile newProfile = new Profile(userName, userID);
-        profileList.add(newProfile);
-
-        return newProfile;
-    }
-
     public String toCSV(List<Profile> profileList, int i) {
         String userName = profileList.get(i).userName;
         String userID = profileList.get(i).userID;
@@ -63,6 +50,7 @@ class Profile{
     public void setDislikedTitles(List<Record> recordList) {
         dislikedTitles = recordList;
     }
+
 
     public List<Record> likeOrDislike(List<Record> undecidedList) {
 
@@ -97,17 +85,5 @@ class Profile{
         return newUndecidedList;
     }
 
-    public List<Record> getSharedList(List<Record> firstLikedList, List<Record> secondLikedList) {
-        List<Record> sharedList = new ArrayList<>();
-        for (Record value : firstLikedList) {
-            for (Record record : secondLikedList) {
-                if (value.titleName.equals(record.titleName)) {
-                    sharedList.add(record);
-                }
-            }
-        }
-        for (Record record : sharedList) System.out.println(record.toCSVSingle(record));
-        return sharedList;
-    }
 }
 
