@@ -29,9 +29,8 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         Scanner scnr = new Scanner(System.in);
         String inputName = scnr.nextLine();
          if (checkExistingProfile(inputName)){
-            profile.userName = inputName;
-            System.out.println("Profile found!!");
-            assignListsToProfile(profile);
+             profile.userName = inputName;
+             System.out.println("Profile found!!");
             profileAssigned = true;
         }
     }
@@ -72,6 +71,7 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
                 return FileFoundResponse.FILENOTFOUND;
             if (csvReader.readCSV(dislikedList, profile.dislikedTitles) == FileFoundResponse.FILENOTFOUND)
                 return FileFoundResponse.FILENOTFOUND;
+            System.out.println("file");
             return FileFoundResponse.FILEFOUND;
         }
 
@@ -85,19 +85,17 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
             if (newProfileChoice == 1) {
                 System.out.println("Alright choose your Username");
                 makeNewProfile(profile);
+                System.out.println("Profile has been created");
+            } else {
+                if (assignListsToProfile(profile) == FileFoundResponse.FILEFOUND) {
+                    findValidUser(profile);
+                }
             }
-            else findValidUser(profile);
-
         }
         else System.out.println("Please enter either '1' or '2'");
 
 
     }
 
-    @Override
-    public void getFileReadResponse() {
-
-    }
-    //TODO work through Enum
 }
 

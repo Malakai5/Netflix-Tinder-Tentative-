@@ -196,6 +196,6 @@ public class Singleton implements CSVUser{ // Used to read CSV file on initiatio
 
     @Override
     public void getFileReadResponse() {
-        
+
     }
 }
