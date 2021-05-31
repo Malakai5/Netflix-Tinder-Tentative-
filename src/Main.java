@@ -10,7 +10,6 @@ public class Main{
 
     ps.assignProfile(profile);
 
-        System.out.println(profile.userName);
 
 
 

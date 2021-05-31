@@ -4,9 +4,15 @@ import java.util.Scanner;
 public class ProfileSearcher implements CSVUser, ProjectConstants {
     Boolean profileAssigned = false;
 
+    public static boolean isAlphaNumeric(String s) {
+        return s != null && s.matches("^[a-zA-Z0-9]*$");
+    }
+
     private boolean checkExistingProfile(String inputName) {
         boolean results = false;
-        if (inputName.isEmpty()){
+        if (inputName.isEmpty() || !isAlphaNumeric(inputName)){
+            System.out.println("Username can only contain alphanumeric characters");
+            System.out.println("Please try again");
             return false;
         }
         for (Profile value : PROFILES) {
@@ -22,9 +28,7 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         System.out.println("Please enter username");
         Scanner scnr = new Scanner(System.in);
         String inputName = scnr.nextLine();
-        if (!checkExistingProfile(inputName)) {
-            System.out.println("profile not found...");
-        } else {
+         if (checkExistingProfile(inputName)){
             profile.userName = inputName;
             System.out.println("Profile found!!");
             assignListsToProfile(profile);
@@ -44,9 +48,6 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
                 profile.userName = userName;
                 makeEmptyCSVs(profile);
             }
-            else
-                System.out.println("Please pick a different Username");
-
         }
 
         private void makeEmptyCSVs(Profile profile) {
@@ -61,14 +62,17 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
             assignListsToProfile(profile);
         }
 
-        private void assignListsToProfile(Profile profile){
+        private FileFoundResponse assignListsToProfile(Profile profile){
             String undecidedList = profile.userName + "'s Undecided Titles.csv";
             String likedList = profile.userName + "'s Liked Titles.csv";
             String dislikedList = profile.userName + "'s Disliked Titles.csv";
-            profile.undecidedTitles = csvReader.readCSV(undecidedList);
-            profile.likedTitles = csvReader.readCSV(likedList);
-            profile.dislikedTitles = csvReader.readCSV(dislikedList);
-
+            if (csvReader.readCSV(undecidedList, profile.undecidedTitles) == FileFoundResponse.FILENOTFOUND)
+                return FileFoundResponse.FILENOTFOUND;
+            if (csvReader.readCSV(likedList, profile.likedTitles) == FileFoundResponse.FILENOTFOUND)
+                return FileFoundResponse.FILENOTFOUND;
+            if (csvReader.readCSV(dislikedList, profile.dislikedTitles) == FileFoundResponse.FILENOTFOUND)
+                return FileFoundResponse.FILENOTFOUND;
+            return FileFoundResponse.FILEFOUND;
         }
 
 
@@ -89,5 +93,11 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
 
 
     }
+
+    @Override
+    public void getFileReadResponse() {
+
+    }
+    //TODO work through Enum
 }
 

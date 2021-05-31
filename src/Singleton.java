@@ -6,13 +6,13 @@ import java.util.List;
 public class Singleton implements CSVUser{ // Used to read CSV file on initiation and never need to read it again.
     private static Singleton single_instance = null;
     List<Profile> profileList;
-    List<Record> originalRecordList;
+    List<Record> originalRecordList = new ArrayList<>();
     Profile profile;
 
 
     public Singleton(){
         this.profileList = csvReader.readProfileCSV();
-        this.originalRecordList = csvReader.readCSV("Netflix(Original!!).csv");
+        csvReader.readCSV("Netflix(Original!!).csv", originalRecordList);
         this.profile = new Profile();
     }
 
@@ -192,5 +192,10 @@ public class Singleton implements CSVUser{ // Used to read CSV file on initiatio
         if (single_instance == null)
             single_instance = new Singleton();
         return single_instance;
+    }
+
+    @Override
+    public void getFileReadResponse() {
+        
     }
 }
