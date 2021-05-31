@@ -31,6 +31,7 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
          if (checkExistingProfile(inputName)){
              profile.userName = inputName;
              System.out.println("Profile found!!");
+             assignListsToProfile(profile);
             profileAssigned = true;
         }
     }
@@ -61,19 +62,21 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
             assignListsToProfile(profile);
         }
 
-        private FileFoundResponse assignListsToProfile(Profile profile){
+        private void assignListsToProfile(Profile profile){
             String undecidedList = profile.userName + "'s Undecided Titles.csv";
             String likedList = profile.userName + "'s Liked Titles.csv";
             String dislikedList = profile.userName + "'s Disliked Titles.csv";
-            if (csvReader.readCSV(undecidedList, profile.undecidedTitles) == FileFoundResponse.FILENOTFOUND)
-                return FileFoundResponse.FILENOTFOUND;
-            if (csvReader.readCSV(likedList, profile.likedTitles) == FileFoundResponse.FILENOTFOUND)
-                return FileFoundResponse.FILENOTFOUND;
-            if (csvReader.readCSV(dislikedList, profile.dislikedTitles) == FileFoundResponse.FILENOTFOUND)
-                return FileFoundResponse.FILENOTFOUND;
-            System.out.println("file");
-            return FileFoundResponse.FILEFOUND;
+            if (csvReader.checkForFile(undecidedList) == FileFoundResponse.FILEFOUND) {
+                profile.undecidedTitles = csvReader.readCSV(undecidedList);
+            }
+            if (csvReader.checkForFile(likedList) == FileFoundResponse.FILEFOUND)
+                profile.likedTitles = csvReader.readCSV(likedList);
+            if (csvReader.checkForFile(undecidedList) == FileFoundResponse.FILEFOUND)
+                profile.dislikedTitles = csvReader.readCSV(dislikedList);
+            else System.out.println("\nfiles weren't found please try again");
         }
+
+
 
 
     public void assignProfile(Profile profile) {
@@ -87,9 +90,7 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
                 makeNewProfile(profile);
                 System.out.println("Profile has been created");
             } else {
-                if (assignListsToProfile(profile) == FileFoundResponse.FILEFOUND) {
                     findValidUser(profile);
-                }
             }
         }
         else System.out.println("Please enter either '1' or '2'");

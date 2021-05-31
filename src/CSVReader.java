@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,8 +9,19 @@ public class CSVReader{
     private static final String COMMA_REGEX_DELIMITER = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
 
 
-    public FileFoundResponse readCSV(String fileName, List<Record> recordList) {
+    public FileFoundResponse checkForFile(String fileName) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            br.readLine();
+        } catch (IOException e) {
+            System.out.println(fileName + " wasn't found");
+            return FileFoundResponse.FILENOTFOUND;
+        }
+        return FileFoundResponse.FILEFOUND;
+    }
+
+    public List<Record> readCSV(String fileName) {
         String[] data;
+        List<Record> recordList = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             //Reads the initial file
             String line;
@@ -28,9 +40,8 @@ public class CSVReader{
             }
         } catch (IOException e) {
             System.out.println(fileName + " not found");
-            return FileFoundResponse.FILENOTFOUND;
         }
-        return FileFoundResponse.FILEFOUND;
+        return recordList;
     }
 
     public List<Profile> readProfileCSV() {
