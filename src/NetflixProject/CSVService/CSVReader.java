@@ -1,9 +1,13 @@
+package NetflixProject.CSVService;
+import NetflixProject.ProfileManagement.Profile;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import NetflixProject.Record;
+
+
 
 public class CSVReader{
     private static final String COMMA_REGEX_DELIMITER = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
@@ -26,12 +30,12 @@ public class CSVReader{
             //Reads the initial file
             String line;
             while ((line = br.readLine()) != null) {
-                data = line.split(COMMA_REGEX_DELIMITER);//Will split the lines into pieces
+                data = line.split(COMMA_REGEX_DELIMITER);
 
                 String titleName = data[0];
                 String tvRating = data[1];
                 String genre = data[2];
-                String titleId = data[3]; //Throwing an index out of bounds clause
+                String titleId = data[3];
                 String yearMade = data[4];
                 String score = data[5];
 

@@ -1,6 +1,8 @@
+package NetflixProject;
+
 import java.util.List;
 
-class Record {
+public class Record {
     String titleName;
     String titleId;
     String genre;
@@ -33,16 +35,8 @@ class Record {
         return titleName.toLowerCase() + "," + tvRating + "," + genre + "," + titleId + "," + yearMade + "," + score + "\n";
     }
 
-    public String toCSVSingle(Record record){
-        String titleName = record.titleName;
-        String tvRating = record.tvRating;
-        String genre = record.genre;
-        String titleId = record.titleId;
-        String yearMade = record.yearMade;
-        String score = record.score;
-
+    public String toCSVSingle(){
         return titleName.toLowerCase() + "," + tvRating + "," + genre + "," + titleId + "," + yearMade + "," + score + "\n";
     }
 
 }
-

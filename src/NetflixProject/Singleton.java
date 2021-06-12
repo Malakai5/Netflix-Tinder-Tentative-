@@ -1,6 +1,11 @@
+package NetflixProject;
+
+import NetflixProject.CSVService.CSVUser;
+import NetflixProject.ProfileManagement.Profile;
+
 import java.util.List;
 
-public class Singleton implements CSVUser{ // Used to read CSV file on initiation and never need to read it again.
+public class Singleton implements CSVUser { // Used to read CSV file on initiation and never need to read it again.
     private static Singleton single_instance = null;
     List<Profile> profileList;
     List<Record> originalRecordList;
