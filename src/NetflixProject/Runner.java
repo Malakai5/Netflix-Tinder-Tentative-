@@ -1,14 +1,13 @@
 package NetflixProject;
 
-import NetflixProject.ProfileManagement.Profile;
+import NetflixProject.AppOperations.StartupProcess;
 import NetflixProject.ProfileManagement.ProfileSearcher;
 
 public class Runner {
     public static void main(String[] args) {
-        ProfileSearcher ps = new ProfileSearcher();
-        Profile profile = new Profile();
-
-        ps.assignProfile(profile);
+        User user = User.getInstance();
+        StartupProcess sp = new StartupProcess();
+        sp.startApplication();
 //        RecordListManipulator rlm = new RecordListManipulator(profile);
 //        rlm.sortingTitles();
     }

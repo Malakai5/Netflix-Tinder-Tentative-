@@ -5,23 +5,23 @@ import NetflixProject.ProfileManagement.Profile;
 
 import java.util.List;
 
-public class Singleton implements CSVUser { // Used to read CSV file on initiation and never need to read it again.
-    private static Singleton single_instance = null;
+public class User implements CSVUser { // Used to read CSV file on initiation and never need to read it again.
+    private static User single_instance = null;
     List<Profile> profileList;
     List<Record> originalRecordList;
-    Profile profile;
+   public Profile profile;
 
 
-    public Singleton(){
+    public User(){
         this.profileList = csvReader.readProfileCSV();
         this.originalRecordList = csvReader.readCSV("Netflix(Original!!).csv");
         this.profile = new Profile();
     }
 
 
-    public static Singleton getInstance() {
+    public static User getInstance() {
         if (single_instance == null)
-            single_instance = new Singleton();
+            single_instance = new User();
         return single_instance;
     }
 }

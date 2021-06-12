@@ -7,17 +7,20 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class ProfileSearcher implements CSVUser, ProjectConstants {
-    Boolean profileAssigned = false;
+    public Boolean profileAssigned = false;
+    private Profile profile;
+
+    public ProfileSearcher(Profile profile){
+        this.profile = profile;
+    }
+
 
     public static boolean isAlphaNumeric(String s) {
         return s != null && s.matches("^[a-zA-Z0-9]*$");
     }
 
     private boolean validUsername(String inputName){
-        if (inputName.isEmpty() || !isAlphaNumeric(inputName)) {
-            return false;
-        }
-        else return true;
+        return !inputName.isEmpty() && isAlphaNumeric(inputName);
     }
 
     private boolean checkNameAvailability(String inputName) {
@@ -32,19 +35,20 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         return nameTaken;
     }
 
-    private void findValidUser(Profile profile) {
+    private void findValidUser() {
         System.out.println("Please enter username");
         Scanner scnr = new Scanner(System.in);
         String inputName = scnr.nextLine();
         if (checkNameAvailability(inputName)){
             profile.userName = inputName;
-            System.out.println("Profile found!!");
-            assignListsToProfile(profile);
+            assignListsToProfile();
             profileAssigned = true;
+            System.out.println("Your Profile has been found!!\n");
         }
+        else System.out.println("That profile name was not found\n");
     }
 
-    private void makeNewProfile(Profile profile) {
+    private void makeNewProfile() {
         Scanner scnr = new Scanner(System.in);
         String userName = scnr.nextLine();
         if (!checkNameAvailability(userName) && !userName.isEmpty()) {
@@ -55,17 +59,18 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
                 PROFILES.add(newProfile);
                 csvWriter.writeProfileCSV(newProfile, PROFILES);
                 profile.userName = userName;
-                makeEmptyCSVs(profile);
+                makeEmptyCSVs();
                 System.out.println("Profile has been created");
+                profileAssigned = true;
             }
             else {
                 System.out.println("Username can only contain alphanumeric characters");
                 System.out.println("Please try again");
             }
-        }
+        } else System.out.println("Please choose a different name\n");
     }
 
-    private void makeEmptyCSVs(Profile profile) {
+    private void makeEmptyCSVs() {
         String undecidedList = profile.userName + "'s Undecided Titles.csv";
         String likedList = profile.userName + "'s Liked Titles.csv";
         String dislikedList = profile.userName + "'s Disliked Titles.csv";
@@ -74,10 +79,10 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         Collections.shuffle(ORIGINALRECORDS);
 
         csvWriter.writeCSV(undecidedList, ORIGINALRECORDS);
-        assignListsToProfile(profile);
+        assignListsToProfile();
     }
 
-    private void assignListsToProfile(Profile profile){
+    private void assignListsToProfile(){
         String undecidedList = profile.userName + "'s Undecided Titles.csv";
         String likedList = profile.userName + "'s Liked Titles.csv";
         String dislikedList = profile.userName + "'s Disliked Titles.csv";
@@ -92,9 +97,7 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
     }
 
 
-
-
-    public void assignProfile(Profile profile) {
+    public void assignProfile() {
         Scanner scnr = new Scanner(System.in);
         System.out.println("Would you like to make a new Profile?");
         System.out.println("enter '1' for YES or '2' for NO");
@@ -102,14 +105,11 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         if (newProfileChoice.equals("1") || newProfileChoice.equals("2")) {
             if (newProfileChoice.equals("1")) {
                 System.out.println("Alright choose your Username");
-                makeNewProfile(profile);
+                makeNewProfile();
             } else {
-                findValidUser(profile);
+                findValidUser();
             }
         }
         else System.out.println("Please enter either '1' or '2'");
-
-
     }
-
 }
