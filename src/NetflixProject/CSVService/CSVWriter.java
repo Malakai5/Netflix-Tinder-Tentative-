@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
 import NetflixProject.ProfileManagement.Profile;
 import NetflixProject.Record;
 
@@ -43,17 +42,23 @@ public class CSVWriter {
         }
     }
 
-
-    public void headerWriter(String filename) {
+    public void recordListCSVCreation(String filename) {
         String headers;
         headers = "TitleName,YearMade,Genre,TvRating,TitleId,Score \n";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
             bw.write(headers);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+    }
+    public void profileListCreation() {
+        String headers;
+        headers = "UserName, UserID\n";
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("ProfileList"))) {
+            bw.write(headers);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

@@ -14,32 +14,39 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         this.profile = profile;
     }
 
-
     public static boolean isAlphaNumeric(String s) {
-        return s != null && s.matches("^[a-zA-Z0-9]*$");
+        if (s != null && !s.matches("^[a-zA-Z0-9]*$")){
+            System.out.println("Username can only contain alphanumeric characters");
+            return false;
+        }
+        return true;
     }
 
     private boolean validUsername(String inputName){
-        return !inputName.isEmpty() && isAlphaNumeric(inputName);
+        if (!inputName.isEmpty() || !isAlphaNumeric(inputName)){
+            System.out.println("That profile name can not be used");
+            return false;
+        }
+        return true;
     }
 
-    private boolean checkNameAvailability(String inputName) {
-        boolean nameTaken = false;
-        if (validUsername(inputName))
-        for (Profile value : PROFILES) {
-            if (value.userName.contains(inputName.toLowerCase())) {
-                nameTaken = true;
+    private boolean nameIsBeingUsed(String inputName) {
+        if (!validUsername(inputName)) {
+            return false;
+        }
+        for (Profile profile: PROFILES){
+         if (profile.userName.equals(inputName.toLowerCase()))
+             return true;
                 break;
-            }
-        }   else System.out.println("That profile name was not available");
-        return nameTaken;
+        }
+        return false;
     }
 
     private void findValidUser() {
         System.out.println("Please enter username");
         Scanner scnr = new Scanner(System.in);
         String inputName = scnr.nextLine();
-        if (checkNameAvailability(inputName)){
+        if (nameIsBeingUsed(inputName)){
             profile.userName = inputName;
             assignListsToProfile();
             profileAssigned = true;
@@ -51,8 +58,7 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
     private void makeNewProfile() {
         Scanner scnr = new Scanner(System.in);
         String userName = scnr.nextLine();
-        if (!checkNameAvailability(userName) && !userName.isEmpty()) {
-            if (validUsername(userName)) {
+        if (!nameIsBeingUsed(userName) && validUsername(userName)) {
                 int selectID = PROFILES.size();
                 String userID = Integer.toString(selectID);
                 Profile newProfile = new Profile(userName, userID);
@@ -62,20 +68,18 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
                 makeEmptyCSVs();
                 System.out.println("Profile has been created");
                 profileAssigned = true;
-            }
-            else {
-                System.out.println("Username can only contain alphanumeric characters");
-                System.out.println("Please try again");
-            }
-        } else System.out.println("Please choose a different name\n");
+        }
+        else {
+            System.out.println("Please choose a different name\n");
+        }
     }
 
     private void makeEmptyCSVs() {
         String undecidedList = profile.userName + "'s Undecided Titles.csv";
         String likedList = profile.userName + "'s Liked Titles.csv";
         String dislikedList = profile.userName + "'s Disliked Titles.csv";
-        csvWriter.headerWriter(likedList);
-        csvWriter.headerWriter(dislikedList);
+        csvWriter.recordListCSVCreation(likedList);
+        csvWriter.recordListCSVCreation(dislikedList);
         Collections.shuffle(ORIGINALRECORDS);
 
         csvWriter.writeCSV(undecidedList, ORIGINALRECORDS);
@@ -95,7 +99,6 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
             profile.dislikedTitles = csvReader.readCSV(dislikedList);
         else System.out.println("\nfiles weren't found please try again");
     }
-
 
     public void assignProfile() {
         Scanner scnr = new Scanner(System.in);

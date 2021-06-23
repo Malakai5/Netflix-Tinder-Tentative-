@@ -1,7 +1,6 @@
 package NetflixProject;
 
 import NetflixProject.ProfileManagement.Profile;
-
 import java.util.List;
 
 public interface ProjectConstants {

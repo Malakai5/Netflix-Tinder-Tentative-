@@ -1,15 +1,12 @@
 package NetflixProject;
 
 import NetflixProject.ProfileManagement.Profile;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class RecordListManipulator {
     Profile profile;
-
     RecordListManipulator(Profile profile) {
         this.profile = profile;
     }
@@ -17,11 +14,13 @@ public class RecordListManipulator {
     private void addToLikedList(Record record) {
         profile.undecidedTitles.remove(record);
         profile.likedTitles.add(record);
+        System.out.println("That's a like!!");
     }
 
     private void addToDislikedList(Record record) {
         profile.undecidedTitles.remove(record);
         profile.likedTitles.remove(record);
+        System.out.println("That ain't it huh?");
     }
 
     public List<Record> compareLikedLists(Profile thatProfile) {
@@ -50,11 +49,9 @@ public class RecordListManipulator {
             String choice = scnr.next();
             if (choice.equals("1")) {
                 addToLikedList(record);
-                System.out.println("That's a like!!");
             }
             if (choice.equals("2")) {
                 addToDislikedList(record);
-                System.out.println("That ain't it huh?");
             }
             if (choice.equals("3")) {
                 System.out.println("Alright let's stop here");

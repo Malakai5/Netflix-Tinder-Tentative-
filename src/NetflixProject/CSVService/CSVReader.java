@@ -1,4 +1,5 @@
 package NetflixProject.CSVService;
+
 import NetflixProject.ProfileManagement.Profile;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,17 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 import NetflixProject.Record;
 
-
-
 public class CSVReader{
     private static final String COMMA_REGEX_DELIMITER = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
-
 
     public FileFoundResponse checkForFile(String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             br.readLine();
         } catch (IOException e) {
             System.out.println(fileName + " wasn't found");
+            return FileFoundResponse.FILENOTFOUND;
+        }
+        return FileFoundResponse.FILEFOUND;
+    }
+
+    public FileFoundResponse checkForProfileList() {
+        try (BufferedReader br = new BufferedReader(new FileReader("ProfileList"))) {
+            br.readLine();
+        } catch (IOException e) {
             return FileFoundResponse.FILENOTFOUND;
         }
         return FileFoundResponse.FILEFOUND;
