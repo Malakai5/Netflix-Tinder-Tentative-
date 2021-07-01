@@ -12,7 +12,7 @@ public class StartupProcess implements ProjectConstants,CSVUser {
 
     private void checkForProfileList(){
         if (csvReader.checkForProfileList() == FileFoundResponse.FILENOTFOUND){
-            System.out.println("Let's create a new list of profiles");
+            System.out.println("Let's create a new list of profiles\n");
             csvWriter.profileListCreation();
         }
     }
@@ -22,7 +22,7 @@ public class StartupProcess implements ProjectConstants,CSVUser {
             checkForProfileList();
             ps.assignProfile();
         }
-        System.out.println("Alright you are all setup");
+        System.out.println("Alright you are all setup\n");
     }
 
 

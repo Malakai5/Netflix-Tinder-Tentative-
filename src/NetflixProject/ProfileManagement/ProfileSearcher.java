@@ -24,7 +24,7 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
 
     private boolean validUsername(String inputName){
         if (inputName.isEmpty() || !isAlphaNumeric(inputName)){
-            System.out.println("That profile name can not be used");
+            System.out.println("That profile name can not be used\n");
             return false;
         }
         return true;
@@ -35,9 +35,9 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
             return false;
         }
         for (Profile profile: PROFILES){
-         if (profile.userName.equals(inputName.toLowerCase()))
+         if (profile.userName.equals(inputName.toLowerCase())) {
              return true;
-                break;
+         }
         }
         return false;
     }

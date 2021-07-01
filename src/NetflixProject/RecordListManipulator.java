@@ -33,6 +33,9 @@ public class RecordListManipulator {
     }
 
     public void showRecordList(List<Record> recordList) {
+        if (recordList.isEmpty())
+            System.out.println("That list is empty");
+        else
         recordList.forEach(record -> {
             System.out.println(record.toCSVSingle());
         });
