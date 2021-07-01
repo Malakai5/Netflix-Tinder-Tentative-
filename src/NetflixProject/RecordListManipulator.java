@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class RecordListManipulator {
     Profile profile;
-    RecordListManipulator(Profile profile) {
+    public RecordListManipulator(Profile profile) {
         this.profile = profile;
     }
 

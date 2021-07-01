@@ -23,7 +23,7 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
     }
 
     private boolean validUsername(String inputName){
-        if (!inputName.isEmpty() || !isAlphaNumeric(inputName)){
+        if (inputName.isEmpty() || !isAlphaNumeric(inputName)){
             System.out.println("That profile name can not be used");
             return false;
         }
@@ -57,7 +57,7 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
 
     private void makeNewProfile() {
         Scanner scnr = new Scanner(System.in);
-        String userName = scnr.nextLine();
+        String userName = scnr.nextLine().toLowerCase();
         if (!nameIsBeingUsed(userName) && validUsername(userName)) {
                 int selectID = PROFILES.size();
                 String userID = Integer.toString(selectID);
@@ -105,14 +105,16 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         System.out.println("Would you like to make a new Profile?");
         System.out.println("enter '1' for YES or '2' for NO");
         String newProfileChoice = scnr.nextLine();
-        if (newProfileChoice.equals("1") || newProfileChoice.equals("2")) {
-            if (newProfileChoice.equals("1")) {
+        if (newProfileChoice.equals("1")) {
                 System.out.println("Alright choose your Username");
                 makeNewProfile();
-            } else {
+            }
+        if (newProfileChoice.equals("2")){
                 findValidUser();
             }
-        }
-        else System.out.println("Please enter either '1' or '2'");
+        if (!newProfileChoice.equals("1") && !newProfileChoice.equals("2"))
+            System.out.println("Please enter either '1' or '2'");
     }
+
+    //TODO work in nameIsBeingUsed();
 }

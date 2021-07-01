@@ -7,8 +7,8 @@ import NetflixProject.ProjectConstants;
 import NetflixProject.User;
 
 public class StartupProcess implements ProjectConstants,CSVUser {
-    User user = User.getInstance();
-    ProfileSearcher ps = new ProfileSearcher(user.profile);
+    private final User user = User.getInstance();
+    private final ProfileSearcher ps = new ProfileSearcher(user.profile);
 
     private void checkForProfileList(){
         if (csvReader.checkForProfileList() == FileFoundResponse.FILENOTFOUND){
@@ -26,5 +26,4 @@ public class StartupProcess implements ProjectConstants,CSVUser {
     }
 
 
-    //TODO add in a way to make sure that profileList while always be Populated
 }
