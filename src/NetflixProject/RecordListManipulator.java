@@ -1,11 +1,14 @@
 package NetflixProject;
 
+import NetflixProject.CSVService.CSVUser;
 import NetflixProject.ProfileManagement.Profile;
+import NetflixProject.ProfileManagement.ProfileSearcher;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class RecordListManipulator {
+public class RecordListManipulator implements CSVUser {
     Profile profile;
     public RecordListManipulator(Profile profile) {
         this.profile = profile;
@@ -19,11 +22,13 @@ public class RecordListManipulator {
 
     private void addToDislikedList(Record record) {
         profile.undecidedTitles.remove(record);
-        profile.likedTitles.remove(record);
+        profile.dislikedTitles.add(record);
         System.out.println("That ain't it huh?");
     }
 
-    public List<Record> compareLikedLists(Profile thatProfile) {
+    public List<Record> compareLikedLists() {
+        ProfileSearcher profileSearcher = new ProfileSearcher();
+        Profile thatProfile = profileSearcher.getSecondProfile();
         List<Record> sharedTitles = new ArrayList<>();
         profile.likedTitles.forEach(record -> {
             if (thatProfile.likedTitles.contains(record))
@@ -43,6 +48,9 @@ public class RecordListManipulator {
 
     public void sortingTitles() {
         boolean stillSwiping = true;
+        String undecidedListCSV = profile.userName + "'s Undecided Titles.csv";
+        String likedListCSV = profile.userName + "'s Liked Titles.csv";
+        String dislikedListCSV = profile.userName + "'s Disliked Titles.csv";
         Scanner scnr = new Scanner(System.in);
         System.out.println("Do you like these titles?");
         while (stillSwiping) {
@@ -58,6 +66,9 @@ public class RecordListManipulator {
             }
             if (choice.equals("3")) {
                 System.out.println("Alright let's stop here");
+                csvWriter.writeCSV(undecidedListCSV, profile.undecidedTitles);
+                csvWriter.writeCSV(likedListCSV, profile.likedTitles);
+                csvWriter.writeCSV(dislikedListCSV, profile.dislikedTitles);
                 stillSwiping = false;
             }
             if (!choice.equals("1") && !choice.equals("2") && !choice.equals("3"))

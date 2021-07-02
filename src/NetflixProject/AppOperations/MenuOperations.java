@@ -23,6 +23,7 @@ public class MenuOperations implements AppOperations{
         return scnr.next();
     }
 
+
     @Override
     public void startOperations() {
         startupProcess.startApplication();
@@ -34,8 +35,8 @@ public class MenuOperations implements AppOperations{
     }
 
     @Override
-    public List<Record> compareLikedLists(Profile thatProfile) {
-        return recordListManipulator.compareLikedLists(thatProfile);
+    public List<Record> compareLikedLists() {
+        return recordListManipulator.compareLikedLists();
     }
 
     @Override

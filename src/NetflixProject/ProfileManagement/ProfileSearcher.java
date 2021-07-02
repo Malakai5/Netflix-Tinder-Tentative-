@@ -10,6 +10,8 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
     public Boolean profileAssigned = false;
     private Profile profile;
 
+    public ProfileSearcher(){}
+
     public ProfileSearcher(Profile profile){
         this.profile = profile;
     }
@@ -116,5 +118,17 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
             System.out.println("Please enter either '1' or '2'");
     }
 
-    //TODO work in nameIsBeingUsed();
+    public Profile getSecondProfile(){
+        System.out.println("What is the name of the profile you wish to connect with?");
+        Profile profile = new Profile();
+        Scanner scnr = new Scanner(System.in);
+        String userName = scnr.nextLine();
+        if (nameIsBeingUsed(userName)){
+            profile.userName = userName;
+            assignListsToProfile();
+            System.out.println("Your Profile has been found!!\n");
+        }
+        else System.out.println("That profile name was not found\n");
+        return profile;
+    }
 }

@@ -7,7 +7,7 @@ public class AppRunner {
     private int menuChoice = 0;
     User user = User.getInstance();
 
-    public void giveOptions(){
+    private void giveOptions(){
         boolean optionChosen = false;
         while(!optionChosen) {
             String optionTaken = operations.menuOptions();
@@ -21,7 +21,7 @@ public class AppRunner {
         }
     }
 
-    public void useMenuOptions(int menuChoice){
+    private void useMenuOptions(int menuChoice){
         if (menuChoice == 1){
             operations.swipeThroughTitles();
         }
@@ -29,16 +29,21 @@ public class AppRunner {
             operations.showRecordList(user.profile.likedTitles);
         }
         if (menuChoice == 3){
-            //TODO
+            operations.compareLikedLists();
         }
         if (menuChoice == 4){
-            //TODO
+
         }
+    }
+
+    public void fullOperations(){
+        operations.startOperations();
+        giveOptions();
+        useMenuOptions(menuChoice);
     }
 
     public static void main(String[] args) {
         AppRunner appRunner = new AppRunner();
-        appRunner.giveOptions();
-        System.out.println(appRunner.menuChoice);
+        appRunner.fullOperations();
     }
 }
