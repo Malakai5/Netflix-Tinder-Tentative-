@@ -6,6 +6,7 @@ public class AppRunner {
     MenuOperations operations = MenuOperations.getInstance();
     private int menuChoice = 0;
     User user = User.getInstance();
+    boolean appBeingUsed = true;
 
     private void giveOptions(){
         boolean optionChosen = false;
@@ -32,14 +33,17 @@ public class AppRunner {
             operations.compareLikedLists();
         }
         if (menuChoice == 4){
-
+            System.out.println("Alright\nHave a good day!!");
+            appBeingUsed = false;
         }
     }
 
     public void fullOperations(){
         operations.startOperations();
-        giveOptions();
-        useMenuOptions(menuChoice);
+        while (appBeingUsed) {
+            giveOptions();
+            useMenuOptions(menuChoice);
+        }
     }
 
     public static void main(String[] args) {

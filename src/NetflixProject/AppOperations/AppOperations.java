@@ -8,6 +8,6 @@ import java.util.List;
 public interface AppOperations {
     void startOperations();
     void swipeThroughTitles();
-    List<Record> compareLikedLists();
+    void compareLikedLists();
     void showRecordList(List<Record> recordList);
 }

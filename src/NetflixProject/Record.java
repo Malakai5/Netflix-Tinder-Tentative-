@@ -10,7 +10,6 @@ public class Record {
     String tvRating;
     String score;
 
-    //Constructor for title class
     public Record(String titleName, String titleId, String genre, String yearMade, String tvRating, String score){
         this.titleId = titleId;
         this.titleName = titleName;

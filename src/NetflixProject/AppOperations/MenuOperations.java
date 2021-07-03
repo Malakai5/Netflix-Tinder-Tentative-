@@ -1,6 +1,5 @@
 package NetflixProject.AppOperations;
 
-import NetflixProject.ProfileManagement.Profile;
 import NetflixProject.Record;
 import NetflixProject.RecordListManipulator;
 import NetflixProject.User;
@@ -23,7 +22,6 @@ public class MenuOperations implements AppOperations{
         return scnr.next();
     }
 
-
     @Override
     public void startOperations() {
         startupProcess.startApplication();
@@ -35,8 +33,8 @@ public class MenuOperations implements AppOperations{
     }
 
     @Override
-    public List<Record> compareLikedLists() {
-        return recordListManipulator.compareLikedLists();
+    public void compareLikedLists() {
+         recordListManipulator.compareLikedLists();
     }
 
     @Override

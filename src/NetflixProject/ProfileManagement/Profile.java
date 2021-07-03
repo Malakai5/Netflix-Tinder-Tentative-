@@ -1,7 +1,6 @@
 package NetflixProject.ProfileManagement;
 
 import NetflixProject.Record;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,6 @@ public class Profile {
     public Profile() {
     }
 
-
     public String toCSV(List<Profile> profileList, int i) {
         String userName = profileList.get(i).userName;
         String userID = profileList.get(i).userID;
@@ -34,21 +32,5 @@ public class Profile {
         String userID = profile.userID;
 
         return userName + "," + userID + "\n";
-    }
-
-    public void setUndecidedTitles(List<Record> recordList) {
-        undecidedTitles = recordList;
-    }
-
-    public void setUserName(String inputName) {
-        userName = inputName;
-    }
-
-    public void setLikedTitles(List<Record> recordList) {
-        likedTitles = recordList;
-    }
-
-    public void setDislikedTitles(List<Record> recordList) {
-        dislikedTitles = recordList;
     }
 }

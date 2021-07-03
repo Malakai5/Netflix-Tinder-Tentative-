@@ -24,6 +24,4 @@ public class StartupProcess implements ProjectConstants,CSVUser {
         }
         System.out.println("Alright you are all setup\n");
     }
-
-
 }

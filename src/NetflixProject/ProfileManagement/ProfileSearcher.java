@@ -50,7 +50,7 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         String inputName = scnr.nextLine();
         if (nameIsBeingUsed(inputName)){
             profile.userName = inputName;
-            assignListsToProfile();
+            assignListsToProfile(profile);
             profileAssigned = true;
             System.out.println("Your Profile has been found!!\n");
         }
@@ -85,10 +85,10 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         Collections.shuffle(ORIGINALRECORDS);
 
         csvWriter.writeCSV(undecidedList, ORIGINALRECORDS);
-        assignListsToProfile();
+        assignListsToProfile(profile);
     }
 
-    private void assignListsToProfile(){
+    private void assignListsToProfile(Profile profile){
         String undecidedList = profile.userName + "'s Undecided Titles.csv";
         String likedList = profile.userName + "'s Liked Titles.csv";
         String dislikedList = profile.userName + "'s Disliked Titles.csv";
@@ -125,7 +125,7 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         String userName = scnr.nextLine();
         if (nameIsBeingUsed(userName)){
             profile.userName = userName;
-            assignListsToProfile();
+            assignListsToProfile(profile);
             System.out.println("Your Profile has been found!!\n");
         }
         else System.out.println("That profile name was not found\n");

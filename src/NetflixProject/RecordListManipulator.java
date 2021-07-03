@@ -3,7 +3,6 @@ package NetflixProject;
 import NetflixProject.CSVService.CSVUser;
 import NetflixProject.ProfileManagement.Profile;
 import NetflixProject.ProfileManagement.ProfileSearcher;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,15 +25,16 @@ public class RecordListManipulator implements CSVUser {
         System.out.println("That ain't it huh?");
     }
 
-    public List<Record> compareLikedLists() {
+    public void compareLikedLists() {
         ProfileSearcher profileSearcher = new ProfileSearcher();
         Profile thatProfile = profileSearcher.getSecondProfile();
         List<Record> sharedTitles = new ArrayList<>();
         profile.likedTitles.forEach(record -> {
             if (thatProfile.likedTitles.contains(record))
                 sharedTitles.add(record);
+            //TODO fix this loop
         });
-        return sharedTitles;
+        showRecordList(sharedTitles);
     }
 
     public void showRecordList(List<Record> recordList) {
@@ -65,7 +65,7 @@ public class RecordListManipulator implements CSVUser {
                 addToDislikedList(record);
             }
             if (choice.equals("3")) {
-                System.out.println("Alright let's stop here");
+                System.out.println("Alright let's stop here\n");
                 csvWriter.writeCSV(undecidedListCSV, profile.undecidedTitles);
                 csvWriter.writeCSV(likedListCSV, profile.likedTitles);
                 csvWriter.writeCSV(dislikedListCSV, profile.dislikedTitles);
@@ -75,6 +75,4 @@ public class RecordListManipulator implements CSVUser {
                 System.out.println("Please enter either '1', '2', or '3'");
         }
     }
-
-
 }
