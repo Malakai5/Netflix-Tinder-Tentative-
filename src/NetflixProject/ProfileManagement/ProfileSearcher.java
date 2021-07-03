@@ -127,8 +127,9 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
             profile.userName = userName;
             assignListsToProfile(profile);
             System.out.println("Your Profile has been found!!\n");
+            return profile;
         }
         else System.out.println("That profile name was not found\n");
-        return profile;
+        return null;
     }
 }

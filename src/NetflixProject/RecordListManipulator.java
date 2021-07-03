@@ -4,6 +4,7 @@ import NetflixProject.CSVService.CSVUser;
 import NetflixProject.ProfileManagement.Profile;
 import NetflixProject.ProfileManagement.ProfileSearcher;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,12 +30,19 @@ public class RecordListManipulator implements CSVUser {
         ProfileSearcher profileSearcher = new ProfileSearcher();
         Profile thatProfile = profileSearcher.getSecondProfile();
         List<Record> sharedTitles = new ArrayList<>();
-        profile.likedTitles.forEach(record -> {
-            if (thatProfile.likedTitles.contains(record))
-                sharedTitles.add(record);
-            //TODO fix this loop
-        });
-        showRecordList(sharedTitles);
+        if (thatProfile != null) {
+            int listSize = 0;
+            while (listSize < profile.likedTitles.size() && listSize < thatProfile.likedTitles.size()) {
+                Record temp = profile.likedTitles.get(listSize);
+                thatProfile.likedTitles.forEach(record -> {
+                    if (record.titleName.equals(temp.titleName)) {
+                        sharedTitles.add(temp);
+                    }
+                });
+                listSize++;
+            }
+            showRecordList(sharedTitles);
+        }
     }
 
     public void showRecordList(List<Record> recordList) {
