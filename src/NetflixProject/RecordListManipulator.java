@@ -42,6 +42,7 @@ public class RecordListManipulator implements CSVUser {
                 listSize++;
             }
             showRecordList(sharedTitles);
+
         }
     }
 
