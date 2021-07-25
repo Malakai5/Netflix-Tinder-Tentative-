@@ -35,6 +35,7 @@ public class MenuOperations implements AppOperations{
     @Override
     public void compareLikedLists() {
          recordListManipulator.compareLikedLists();
+
     }
 
     @Override

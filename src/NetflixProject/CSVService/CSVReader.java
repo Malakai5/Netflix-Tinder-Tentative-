@@ -39,14 +39,16 @@ public class CSVReader{
             while ((line = br.readLine()) != null) {
                 data = line.split(COMMA_REGEX_DELIMITER);
 
-                String titleName = data[0];
-                String tvRating = data[1];
-                String genre = data[2];
-                String titleId = data[3];
-                String yearMade = data[4];
-                String score = data[5];
+                String mediaType = data[0];
+                String titleName = data[1];
+                String country = data[2];
+                String yearMade = data[3];
+                String tvRating = data[4];
+                String genre = data[5];
 
-                Record currentRecords = new Record(titleName, tvRating, genre, titleId, yearMade, score);
+                //TODO fix record statements
+
+                Record currentRecords = new Record(titleName, tvRating, genre, null, yearMade, null);
                 recordList.add(currentRecords);
             }
         } catch (IOException e) {

@@ -3,38 +3,50 @@ package NetflixProject;
 import java.util.List;
 
 public class Record {
-    String titleName;
-    String titleId;
-    String genre;
-    String yearMade;
-    String tvRating;
-    String score;
+    public int titleID;
+    public String mediaType;
+    public String titleName;
+    public String country;
+    public List<String> genre;
+    public int releaseYear;
+    public String tvRating;
+    public String duration;
+    public String description;
 
-    public Record(String titleName, String titleId, String genre, String yearMade, String tvRating, String score){
-        this.titleId = titleId;
+    public Record(String mediaType, String titleName, String country, int releaseYear, String tvRating,
+                  String duration, List<String> genre, String description, int titleID){
+        this.titleID = titleID;
+        this.description = description;
+        this.duration = duration;
+        this.country = country;
+        this.mediaType = mediaType;
         this.titleName = titleName;
-        this.yearMade = yearMade;
+        this.releaseYear = releaseYear;
         this.genre = genre;
         this.tvRating = tvRating;
-        this.score = score;
     }
 
     public Record(){
     }
 
+    public Record(String titleName, String tvRating, String genre, Object o, String releaseYear, Object o1) {
+    }
+
     public String toCSV(List<Record> recordList, int i) {
+        String mediaType = recordList.get(i).mediaType;
+        String country = recordList.get(i).country;
+        String duration = recordList.get(i).duration;
         String titleName = recordList.get(i).titleName;
         String tvRating = recordList.get(i).tvRating;
-        String genre = recordList.get(i).genre;
-        String titleId = recordList.get(i).titleId;
-        String yearMade = recordList.get(i).yearMade;
-        String score = recordList.get(i).score;
+        List<String> genre = recordList.get(i).genre;
+        int yearMade = recordList.get(i).releaseYear;
 
-        return titleName.toLowerCase() + "," + tvRating + "," + genre + "," + titleId + "," + yearMade + "," + score + "\n";
+        return mediaType + ", " + titleName + ", " + country + ", "
+                + yearMade + ", " + tvRating + ", " + duration + ", " + genre;
     }
 
     public String toCSVSingle(){
-        return titleName.toLowerCase() + "," + tvRating + "," + genre + "," + titleId + "," + yearMade + "," + score + "\n";
-    }
+        return mediaType + ", " + titleName + ", " + country + ", "
+                + releaseYear + ", " + tvRating + ", " + duration + ", " + genre;}
 
 }

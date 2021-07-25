@@ -102,6 +102,8 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         else System.out.println("\nfiles weren't found please try again");
     }
 
+
+
     public void assignProfile() {
         Scanner scnr = new Scanner(System.in);
         System.out.println("Would you like to make a new Profile?");
@@ -118,7 +120,7 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
             System.out.println("Please enter either '1' or '2'");
     }
 
-    public Profile getSecondProfile(){
+    public Profile requestSecondProfile(){
         System.out.println("What is the name of the profile you wish to connect with?");
         Profile profile = new Profile();
         Scanner scnr = new Scanner(System.in);

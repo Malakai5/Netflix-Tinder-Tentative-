@@ -28,7 +28,7 @@ public class RecordListManipulator implements CSVUser {
 
     public void compareLikedLists() {
         ProfileSearcher profileSearcher = new ProfileSearcher();
-        Profile thatProfile = profileSearcher.getSecondProfile();
+        Profile thatProfile = profileSearcher.requestSecondProfile();
         List<Record> sharedTitles = new ArrayList<>();
         if (thatProfile != null) {
             int listSize = 0;
@@ -42,13 +42,12 @@ public class RecordListManipulator implements CSVUser {
                 listSize++;
             }
             showRecordList(sharedTitles);
-
         }
     }
 
     public void showRecordList(List<Record> recordList) {
         if (recordList.isEmpty())
-            System.out.println("That list is empty");
+            System.out.println("That list is empty\n");
         else
         recordList.forEach(record -> {
             System.out.println(record.toCSVSingle());

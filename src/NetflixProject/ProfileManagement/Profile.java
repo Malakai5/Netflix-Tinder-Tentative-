@@ -30,7 +30,9 @@ public class Profile {
     public String toCSVSingle(Profile profile) {
         String userName = profile.userName;
         String userID = profile.userID;
+        Profile pro = new Profile();
 
         return userName + "," + userID + "\n";
+
     }
 }
