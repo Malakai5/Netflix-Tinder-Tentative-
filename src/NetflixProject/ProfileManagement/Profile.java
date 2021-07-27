@@ -6,11 +6,12 @@ import java.util.List;
 
 public class Profile {
    public String userName;
+   public String password;
    public List<Record> likedTitles = new ArrayList<>();
    public List<Record> dislikedTitles = new ArrayList<>();
    public List<Record> undecidedTitles = new ArrayList<>();
    public String userID;
-    int selectID;
+   int selectID;
 
     public Profile(String userName, String userID) {
         this.userName = userName;

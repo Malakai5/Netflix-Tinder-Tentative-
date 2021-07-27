@@ -1,15 +1,19 @@
 package NetflixProject;
 
-import NetflixProject.ConnectionDrivers.DatabaseSearcher;
+import NetflixProject.ConnectionDrivers.DatabaseOperations;
 import NetflixProject.ProfileManagement.Profile;
 
 
 public class Tester {
     public static void main(String[] args) {
-        DatabaseSearcher databaseSearcher = new DatabaseSearcher();
+        DatabaseOperations databaseOperations = new DatabaseOperations();
         Profile profile = new Profile();
-        RecordListManipulator rlm = new RecordListManipulator(profile);
-        rlm.showRecordList(databaseSearcher.getOriginalRecordList());
-        databaseSearcher.test();
+        profile.userName = "Scooby";
+        profile.password = "Coward";
+//        RecordListManipulator rlm = new RecordListManipulator(profile);
+//        rlm.showRecordList(databaseOperations.getOriginalRecordList());
+//        databaseOperations.test();
+        databaseOperations.addProfileToProfileListTable(profile);
+        databaseOperations.addProfileToUserTable(profile);
     }
 }

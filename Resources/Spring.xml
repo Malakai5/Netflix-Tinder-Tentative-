@@ -12,4 +12,15 @@
         <constructor-arg value="SELECT * FROM netflix_titles"/>
     </bean>
 
+    <bean id="add.to.profiles" class="java.lang.String">
+        <constructor-arg value="INSERT INTO profile_list (user_name, password) VALUES (:username,:password)"/>
+    </bean>
+    <bean id="add.to.user" class="java.lang.String">
+        <constructor-arg value="INSERT INTO user (username, undecided) VALUES (:username, :undecided)"/>
+    </bean>
+    <bean id="update.record.list" class="java.lang.String">
+        <constructor-arg value="INSERT INTO user(:listType) VALUES (:titleIDs)"/>
+    </bean>
+
+
 </beans>
