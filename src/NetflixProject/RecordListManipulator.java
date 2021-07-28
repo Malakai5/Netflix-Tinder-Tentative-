@@ -1,10 +1,10 @@
 package NetflixProject;
 
 import NetflixProject.CSVService.CSVUser;
+import NetflixProject.Connections.DatabaseOperations.DatabaseOperator;
 import NetflixProject.ProfileManagement.Profile;
 import NetflixProject.ProfileManagement.ProfileSearcher;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,13 +17,13 @@ public class RecordListManipulator implements CSVUser {
     private void addToLikedList(Record record) {
         profile.undecidedTitles.remove(record);
         profile.likedTitles.add(record);
-        System.out.println("That's a like!!");
+        System.out.println("That's a like!!\n");
     }
 
     private void addToDislikedList(Record record) {
         profile.undecidedTitles.remove(record);
         profile.dislikedTitles.add(record);
-        System.out.println("That ain't it huh?");
+        System.out.println("That ain't it huh?\n");
     }
 
     public void compareLikedLists() {
@@ -49,21 +49,16 @@ public class RecordListManipulator implements CSVUser {
         if (recordList.isEmpty())
             System.out.println("That list is empty\n");
         else
-        recordList.forEach(record -> {
-            System.out.println(record.toCSVSingle());
-        });
+        recordList.forEach(record -> System.out.println(record.toCSVSingle() +"\n"));
     }
 
     public void sortingTitles() {
         boolean stillSwiping = true;
-        String undecidedListCSV = profile.userName + "'s Undecided Titles.csv";
-        String likedListCSV = profile.userName + "'s Liked Titles.csv";
-        String dislikedListCSV = profile.userName + "'s Disliked Titles.csv";
         Scanner scnr = new Scanner(System.in);
         System.out.println("Do you like these titles?");
         while (stillSwiping) {
             System.out.println("'1' for yes, '2' for no, and '3' to stop swiping\n");
-            Record record = profile.undecidedTitles.get(1);
+            Record record = profile.undecidedTitles.get(0);
             System.out.println(record.toCSVSingle());
             String choice = scnr.next();
             if (choice.equals("1")) {
@@ -74,9 +69,9 @@ public class RecordListManipulator implements CSVUser {
             }
             if (choice.equals("3")) {
                 System.out.println("Alright let's stop here\n");
-                csvWriter.writeCSV(undecidedListCSV, profile.undecidedTitles);
-                csvWriter.writeCSV(likedListCSV, profile.likedTitles);
-                csvWriter.writeCSV(dislikedListCSV, profile.dislikedTitles);
+                DatabaseOperator.updateRecordLists(profile.undecidedTitles,"undecided", profile.userID);
+                DatabaseOperator.updateRecordLists(profile.likedTitles,"liked", profile.userID);
+                DatabaseOperator.updateRecordLists(profile.dislikedTitles,"disliked", profile.userID);
                 stillSwiping = false;
             }
             if (!choice.equals("1") && !choice.equals("2") && !choice.equals("3"))

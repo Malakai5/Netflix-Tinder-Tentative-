@@ -1,6 +1,7 @@
 package NetflixProject.ProfileManagement;
+
 import NetflixProject.CSVService.CSVUser;
-import NetflixProject.CSVService.FileFoundResponse;
+import NetflixProject.Connections.DatabaseOperations.DatabaseOperator;
 import NetflixProject.ProjectConstants;
 
 import java.util.Collections;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 public class ProfileSearcher implements CSVUser, ProjectConstants {
     public Boolean profileAssigned = false;
     private Profile profile;
+    Authenticator authenticator = new Authenticator();
 
     public ProfileSearcher(){}
 
@@ -16,40 +18,16 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         this.profile = profile;
     }
 
-    public static boolean isAlphaNumeric(String s) {
-        if (s != null && !s.matches("^[a-zA-Z0-9]*$")){
-            System.out.println("Username can only contain alphanumeric characters");
-            return false;
-        }
-        return true;
-    }
 
-    private boolean validUsername(String inputName){
-        if (inputName.isEmpty() || !isAlphaNumeric(inputName)){
-            System.out.println("That profile name can not be used\n");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean nameIsBeingUsed(String inputName) {
-        if (!validUsername(inputName)) {
-            return false;
-        }
-        for (Profile profile: PROFILES){
-         if (profile.userName.equals(inputName.toLowerCase())) {
-             return true;
-         }
-        }
-        return false;
-    }
 
     private void findValidUser() {
         System.out.println("Please enter username");
         Scanner scnr = new Scanner(System.in);
         String inputName = scnr.nextLine();
-        if (nameIsBeingUsed(inputName)){
-            profile.userName = inputName;
+        System.out.println("Please enter a password");
+        String password = scnr.nextLine();
+        profile.userName = inputName;
+        if (authenticator.isNameTaken(profile) && authenticator.isPasswordCorrect(password,profile)){
             assignListsToProfile(profile);
             profileAssigned = true;
             System.out.println("Your Profile has been found!!\n");
@@ -57,52 +35,35 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         else System.out.println("That profile name was not found\n");
     }
 
-    private void makeNewProfile() {
+    public void makeNewProfile() {
         Scanner scnr = new Scanner(System.in);
         String userName = scnr.nextLine().toLowerCase();
-        if (!nameIsBeingUsed(userName) && validUsername(userName)) {
-                int selectID = PROFILES.size();
-                String userID = Integer.toString(selectID);
-                Profile newProfile = new Profile(userName, userID);
-                PROFILES.add(newProfile);
-                csvWriter.writeProfileCSV(newProfile, PROFILES);
-                profile.userName = userName;
-                makeEmptyCSVs();
-                System.out.println("Profile has been created");
-                profileAssigned = true;
+        System.out.println("Please enter a password\n" + "min 7 characters");
+        String password = scnr.nextLine();
+        if (!authenticator.isNameTaken(profile) && authenticator.validUsername(userName)
+                && authenticator.validPassword(password)) {
+            System.out.println("");
+            profile.userID = PROFILES.size() +1 ;
+            profile.userName = userName;
+            profile.password = password;
+            DatabaseOperator.addProfileToUserTable(profile);
+            assignListsToProfile(profile);
+            System.out.println("Profile has been created");
+            profileAssigned = true;
         }
         else {
             System.out.println("Please choose a different name\n");
         }
     }
 
-    private void makeEmptyCSVs() {
-        String undecidedList = profile.userName + "'s Undecided Titles.csv";
-        String likedList = profile.userName + "'s Liked Titles.csv";
-        String dislikedList = profile.userName + "'s Disliked Titles.csv";
-        csvWriter.recordListCSVCreation(likedList);
-        csvWriter.recordListCSVCreation(dislikedList);
-        Collections.shuffle(ORIGINALRECORDS);
-
-        csvWriter.writeCSV(undecidedList, ORIGINALRECORDS);
-        assignListsToProfile(profile);
-    }
-
     private void assignListsToProfile(Profile profile){
-        String undecidedList = profile.userName + "'s Undecided Titles.csv";
-        String likedList = profile.userName + "'s Liked Titles.csv";
-        String dislikedList = profile.userName + "'s Disliked Titles.csv";
-        if (csvReader.checkForFile(undecidedList) == FileFoundResponse.FILEFOUND) {
-            profile.undecidedTitles = csvReader.readCSV(undecidedList);
-        }
-        if (csvReader.checkForFile(likedList) == FileFoundResponse.FILEFOUND)
-            profile.likedTitles = csvReader.readCSV(likedList);
-        if (csvReader.checkForFile(undecidedList) == FileFoundResponse.FILEFOUND)
-            profile.dislikedTitles = csvReader.readCSV(dislikedList);
-        else System.out.println("\nfiles weren't found please try again");
+       profile.undecidedTitles = DatabaseOperator.getUserRecordList(profile.userID, "undecided");
+       profile.likedTitles = DatabaseOperator.getUserRecordList(profile.userID, "liked");
+       profile.dislikedTitles = DatabaseOperator.getUserRecordList(profile.userID, "disliked");
+        Collections.shuffle(profile.undecidedTitles);
+        Collections.shuffle(profile.dislikedTitles);
+        Collections.shuffle(profile.likedTitles);
     }
-
-
 
     public void assignProfile() {
         Scanner scnr = new Scanner(System.in);
@@ -124,9 +85,8 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         System.out.println("What is the name of the profile you wish to connect with?");
         Profile profile = new Profile();
         Scanner scnr = new Scanner(System.in);
-        String userName = scnr.nextLine();
-        if (nameIsBeingUsed(userName)){
-            profile.userName = userName;
+        profile.userName = scnr.nextLine();
+        if (authenticator.isNameTaken(profile)){
             assignListsToProfile(profile);
             System.out.println("Your Profile has been found!!\n");
             return profile;

@@ -8,8 +8,21 @@
       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
     <context:annotation-config/>
 
+    <bean id="get.all.records" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM netflix_titles"/>
+    </bean>
+
+    <bean id="get.all.users" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM users"/>
+    </bean>
+
+    <bean id="get.title" class="java.lang.String">
+        <constructor-arg value="SELECT * from netflix_titles WHERE id = :id"/>
+    </bean>
+
+    <bean id="get.user.records" class="java.lang.String">
+        <constructor-arg value="SELECT :listType FROM users WHERE id = :id"/>
+    </bean>
 
 
-    <import resource="classpath*:updates.xml"/>
-    <import resource="classpath*:selects.xml"/>
 </beans>

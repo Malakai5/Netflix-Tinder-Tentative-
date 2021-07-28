@@ -1,4 +1,4 @@
-package NetflixProject.ConnectionDrivers;
+package NetflixProject.Connections;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

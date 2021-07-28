@@ -67,7 +67,7 @@ public class CSVReader{
             while ((line = br.readLine()) != null) {
                 data = line.split(COMMA_REGEX_DELIMITER);
                 String userName = data[0].toLowerCase();
-                String userID = data[1];
+                int userID = Integer.parseInt(data[1]);
                 Profile currentProfile = new Profile(userName, userID);
                 profileList.add(currentProfile);
             }

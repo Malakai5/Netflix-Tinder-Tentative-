@@ -5,17 +5,17 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SpringSearcher {
-    private static SpringSearcher searcher = new SpringSearcher();
-    private static String springXml = "Spring.xml";
-    private static ApplicationContext baseContext = configs(springXml);
+    private static final SpringSearcher searcher = new SpringSearcher();
+    private static final String springXml = "Spring.xml";
+    private static final ApplicationContext baseContext = configs();
 
-    private static ApplicationContext configs(String fileName){
+    private static ApplicationContext configs(){
         ApplicationContext applicationContext = null;
         try{
-            applicationContext = new ClassPathXmlApplicationContext(fileName);
+            applicationContext = new ClassPathXmlApplicationContext(SpringSearcher.springXml);
         } catch (BeansException e) {
             e.printStackTrace();
-            System.out.println("error in loading config file: " + fileName);
+            System.out.println("error in loading config file: " + SpringSearcher.springXml);
         }
         return applicationContext;
     }
