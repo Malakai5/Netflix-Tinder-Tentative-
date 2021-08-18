@@ -16,10 +16,4 @@
         <constructor-arg value="INSERT INTO users (username, undecided, password, liked, disliked) VALUES (:username, :undecided, :password, 0, 0)"/>
     </bean>
 
-
-
-
-
-
-
 </beans>

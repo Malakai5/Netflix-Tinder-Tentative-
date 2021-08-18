@@ -37,7 +37,7 @@ public class RecordListManipulator implements CSVUser {
                 thatProfile.likedTitles.forEach(record -> {
                     if (record.titleName.equals(temp.titleName)) {
                         sharedTitles.add(temp);
-                    }
+                    } //TODO fix this bull
                 });
                 listSize++;
             }

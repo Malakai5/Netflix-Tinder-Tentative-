@@ -24,5 +24,4 @@
         <constructor-arg value="SELECT :listType FROM users WHERE id = :id"/>
     </bean>
 
-
 </beans>

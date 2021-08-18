@@ -8,8 +8,6 @@
       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
     <context:annotation-config/>
 
-
-
     <import resource="classpath*:updates.xml"/>
     <import resource="classpath*:selects.xml"/>
 </beans>

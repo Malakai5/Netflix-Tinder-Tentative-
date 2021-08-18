@@ -25,7 +25,7 @@ public class Tester {
 //        System.out.println(databaseUpdater.transformIntegerList(ProjectConstants.ORIGINALRECORDSIDS));
 //        ProfileSearcher profileSearcher = new ProfileSearcher(profile);
 //        profileSearcher.makeNewProfile();
-//        System.out.println(DatabaseOperator.getOriginalRecordListIDs());
+        System.out.println(DatabaseOperator.getOriginalRecordListIDs());
 //        DatabaseOperator.addProfileToUserTable(profile);
 //        databaseOperations.test();
 //        DatabaseOperations.updateRecordLists(recordList, "liked", 1);

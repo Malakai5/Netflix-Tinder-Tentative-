@@ -40,11 +40,11 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         String userName = scnr.nextLine().toLowerCase();
         System.out.println("Please enter a password\n" + "min 7 characters");
         String password = scnr.nextLine();
+        profile.userName = userName;
         if (!authenticator.isNameTaken(profile) && authenticator.validUsername(userName)
                 && authenticator.validPassword(password)) {
             System.out.println("");
             profile.userID = PROFILES.size() +1 ;
-            profile.userName = userName;
             profile.password = password;
             DatabaseOperator.addProfileToUserTable(profile);
             assignListsToProfile(profile);

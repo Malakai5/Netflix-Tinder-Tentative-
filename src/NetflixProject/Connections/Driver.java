@@ -9,9 +9,9 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 public class Driver {
     private static BasicDataSource dataSource;
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "Cowboy12!";
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/netflixtinder";
+    private static final String USERNAME = "MalikMandy";
+    private static final String PASSWORD = "Malaka!5";
+    private static final String DB_URL = "jdbc:mysql://awsnetflix.cwfpybswbnr7.us-east-2.rds.amazonaws.com:3306/netflixtinder";
 
     public static synchronized DataSource getDataSource(){
         if(dataSource == null){
@@ -44,4 +44,6 @@ public class Driver {
        Connection conn = Driver.getDataSource().getConnection();
         System.out.println(conn.getMetaData().getDatabaseProductName());
     }
+
+    //TODO figure out why connection is taking so long
 }
