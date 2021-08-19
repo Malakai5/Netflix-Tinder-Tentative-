@@ -28,9 +28,11 @@ public class DatabaseOperator {
         return databaseGetter.getTitle(id);
     }
 
+    public static List<Record> getTitleList(List<Integer> titleIDs){return databaseGetter.getTitleList(titleIDs);}
+
 
     public static void addProfileToUserTable(Profile profile){
-        databaseUpdater.addProfileToUserTable(profile,getOriginalRecordListIDs());
+        databaseUpdater.addProfileToUserTable(profile);
     }
 
     public static void updateRecordLists(List<Record> recordList, String listType, int id){

@@ -28,14 +28,17 @@ public class DatabaseUpdater {
         return sb.toString();
     }
 
-    public void addProfileToUserTable(Profile profile, List<Integer> titleIDs){
-        String sqlQuery = (String) SpringSearcher.getInstance().lookUp("add.to.users");
-        String undecided = transformIntegerList(titleIDs);
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource()
+    public void addProfileToUserTable(Profile profile){
+        List<String> sqlQueryList = (List<String>) SpringSearcher.getInstance().lookUp("add.to.users");
+        MapSqlParameterSource firstSQL = new MapSqlParameterSource()
                 .addValue("username", profile.userName)
-                .addValue("undecided", undecided)
                 .addValue("password", profile.password);
-        queryParameter.update(sqlQuery,mapSqlParameterSource);
+        String secondSQL = sqlQueryList.get(1).replace("custom", profile.userName);
+        String thirdSQL = sqlQueryList.get(2).replace("custom", profile.userName);
+        queryParameter.update(sqlQueryList.get(0),firstSQL);
+        queryParameter.update(secondSQL,new MapSqlParameterSource());
+        queryParameter.update(thirdSQL, new MapSqlParameterSource());
+
     }
 
     public void updateRecordLists(List<Record> recordList, String listType, int id){

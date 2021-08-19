@@ -12,8 +12,26 @@
         <constructor-arg value="UPDATE users SET listType = titleIDs WHERE id = :id"/>
     </bean>
 
-    <bean id="add.to.users" class="java.lang.String">
-        <constructor-arg value="INSERT INTO users (username, undecided, password, liked, disliked) VALUES (:username, :undecided, :password, 0, 0)"/>
+    <bean id="insert.into.users" class="java.lang.String">
+        <constructor-arg value="INSERT INTO users (username, password) VALUES (:username, :password);"/>
+    </bean>
+
+    <bean id="create.user.table" class="java.lang.String">
+        <constructor-arg value="CREATE TABLE Lists.`custom_record_list` (`id` int DEFAULT NULL,`opinion` varchar(20) DEFAULT 'UNDECIDED');"/>
+    </bean>
+
+    <bean id="insert.records" class="java.lang.String">
+        <constructor-arg value="Insert into Lists.custom_record_list(Id) Select id FROM netflix_titles;"/>
+    </bean>
+
+    <bean id="add.to.users" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="insert.into.users"/>
+                <ref bean="create.user.table"/>
+                <ref bean="insert.records"/>
+            </list>
+        </constructor-arg>
     </bean>
 
 </beans>

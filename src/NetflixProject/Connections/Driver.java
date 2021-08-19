@@ -45,5 +45,5 @@ public class Driver {
         System.out.println(conn.getMetaData().getDatabaseProductName());
     }
 
-    //TODO figure out why connection is taking so long
 }
+// TODO work on creation of record lists

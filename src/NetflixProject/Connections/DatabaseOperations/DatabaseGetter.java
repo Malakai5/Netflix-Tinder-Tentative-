@@ -72,7 +72,7 @@ public class DatabaseGetter {
         return titledIDs;
     }
 
-    private List<Record> getTitleList(List<Integer> titleIDs){
+    public List<Record> getTitleList(List<Integer> titleIDs){
         List<Record> recordList = new ArrayList<>();
         for (int i=0; i<=titleIDs.size()-1;i++){
             recordList.add(getTitle(titleIDs.get(i)));

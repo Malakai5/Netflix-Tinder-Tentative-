@@ -21,20 +21,17 @@ public class Tester {
         temp.add(3);
         profile.userID = 1;
         profile.userName = "Scooby";
-        profile.password = "Coward";
+        profile.password = "Coward!";
 //        System.out.println(databaseUpdater.transformIntegerList(ProjectConstants.ORIGINALRECORDSIDS));
-//        ProfileSearcher profileSearcher = new ProfileSearcher(profile);
-//        profileSearcher.makeNewProfile();
-        System.out.println(DatabaseOperator.getOriginalRecordListIDs());
+//        System.out.println(DatabaseOperator.getOriginalRecordListIDs());
 //        DatabaseOperator.addProfileToUserTable(profile);
-//        databaseOperations.test();
-//        DatabaseOperations.updateRecordLists(recordList, "liked", 1);
-//        DatabaseOperations.getAllUsers().forEach(tempProfile ->{
+//        DatabaseOperator.getAllUsers().forEach(tempProfile ->{
 //            System.out.println(profile.toCSVSingle());
 //            if (tempProfile.userID == 1){
 //                tempProfile.undecidedTitles.forEach(record -> System.out.println(record.toCSVSingle()));
 //            }
 //        });
-//        DatabaseOperator.getUserRecordList(0, "undecided").forEach(record -> System.out.println(record.toCSVSingle()));
+//        DatabaseOperator.getUserRecordList(1, "undecided").forEach(record -> System.out.println(record.toCSVSingle()));
+        DatabaseOperator.addProfileToUserTable(profile);
     }
 }
