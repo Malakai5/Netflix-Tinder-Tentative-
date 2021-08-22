@@ -6,5 +6,5 @@ import java.util.List;
 public interface ProjectConstants {
     User USER = new User();
     List<Profile> PROFILES = USER.profileList;
-    List<Integer> ORIGINALRECORDSIDS = USER.originalRecordListIDs;
+    List<Record> ORIGINALRECORDSIDS = USER.originalRecordListIDs;
 }

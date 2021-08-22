@@ -12,30 +12,27 @@ public class DatabaseOperator {
     public static DatabaseGetter databaseGetter = new DatabaseGetter(namedParameterJdbcTemplate);
     public static DatabaseUpdater databaseUpdater = new DatabaseUpdater(namedParameterJdbcTemplate);
 
-    public static List<Integer> getOriginalRecordListIDs(){
-        return databaseGetter.getOriginalRecordListIDs();
+    public static List<Record> getOriginalRecordList(){
+        return databaseGetter.getOriginalRecordList();
     }
 
     public static List<Profile> getAllUsers(){
         return databaseGetter.getAllUsers();
     }
 
-    public static List<Record> getUserRecordList(int userID, String listType){
-        return databaseGetter.getUserRecordList(userID, listType);
+    public static List<Record> getUserRecordList(String username, String choice){
+        return databaseGetter.getUserRecordList(username, choice);
     }
 
     public static Record getTitle(int id){
         return databaseGetter.getTitle(id);
     }
 
-    public static List<Record> getTitleList(List<Integer> titleIDs){return databaseGetter.getTitleList(titleIDs);}
-
-
     public static void addProfileToUserTable(Profile profile){
         databaseUpdater.addProfileToUserTable(profile);
     }
 
-    public static void updateRecordLists(List<Record> recordList, String listType, int id){
-        databaseUpdater.updateRecordLists(recordList, listType, id);
+    public static void updateRecordLists(String username, String choice, int id){
+        databaseUpdater.updateRecordLists(username, choice, id);
     }
 }

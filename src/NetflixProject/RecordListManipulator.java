@@ -17,12 +17,14 @@ public class RecordListManipulator implements CSVUser {
     private void addToLikedList(Record record) {
         profile.undecidedTitles.remove(record);
         profile.likedTitles.add(record);
+        DatabaseOperator.updateRecordLists(profile.userName, "LIKED", record.titleID);
         System.out.println("That's a like!!\n");
     }
 
     private void addToDislikedList(Record record) {
         profile.undecidedTitles.remove(record);
         profile.dislikedTitles.add(record);
+        DatabaseOperator.updateRecordLists(profile.userName, "DISLIKED", record.titleID);
         System.out.println("That ain't it huh?\n");
     }
 
@@ -69,9 +71,6 @@ public class RecordListManipulator implements CSVUser {
             }
             if (choice.equals("3")) {
                 System.out.println("Alright let's stop here\n");
-                DatabaseOperator.updateRecordLists(profile.undecidedTitles,"undecided", profile.userID);
-                DatabaseOperator.updateRecordLists(profile.likedTitles,"liked", profile.userID);
-                DatabaseOperator.updateRecordLists(profile.dislikedTitles,"disliked", profile.userID);
                 stillSwiping = false;
             }
             if (!choice.equals("1") && !choice.equals("2") && !choice.equals("3"))

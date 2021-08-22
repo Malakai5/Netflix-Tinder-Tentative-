@@ -10,12 +10,12 @@ public class User implements CSVUser {
     private static User single_instance = null;
     public Profile profile;
     List<Profile> profileList;
-    List<Integer> originalRecordListIDs;
+    List<Record> originalRecordListIDs;
 
     public User(){
         this.profileList = DatabaseOperator.getAllUsers();
 //        this.profileList = csvReader.readProfileCSV(); OLD METHOD
-        this.originalRecordListIDs = DatabaseOperator.getOriginalRecordListIDs();
+        this.originalRecordListIDs = DatabaseOperator.getOriginalRecordList();
 //        this.originalRecordList = csvReader.readCSV("Netflix(Original!!).csv"); OLD METHOD
         this.profile = new Profile();
     }

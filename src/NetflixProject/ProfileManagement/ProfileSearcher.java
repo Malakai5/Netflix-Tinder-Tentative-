@@ -18,8 +18,6 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
         this.profile = profile;
     }
 
-
-
     private void findValidUser() {
         System.out.println("Please enter username");
         Scanner scnr = new Scanner(System.in);
@@ -57,9 +55,9 @@ public class ProfileSearcher implements CSVUser, ProjectConstants {
     }
 
     private void assignListsToProfile(Profile profile){
-       profile.undecidedTitles = DatabaseOperator.getUserRecordList(profile.userID, "undecided");
-       profile.likedTitles = DatabaseOperator.getUserRecordList(profile.userID, "liked");
-       profile.dislikedTitles = DatabaseOperator.getUserRecordList(profile.userID, "disliked");
+       profile.undecidedTitles = DatabaseOperator.getUserRecordList(profile.userName, "undecided");
+       profile.likedTitles = DatabaseOperator.getUserRecordList(profile.userName, "liked");
+       profile.dislikedTitles = DatabaseOperator.getUserRecordList(profile.userName, "disliked");
         Collections.shuffle(profile.undecidedTitles);
         Collections.shuffle(profile.dislikedTitles);
         Collections.shuffle(profile.likedTitles);

@@ -52,4 +52,15 @@ public class DatabaseUpdater {
                 .addValue("id", id);
         queryParameter.update(sqlQuery,mapSqlParameterSource);
     }
+
+    public void updateRecordLists(String username, String choice, int id){
+        String sqlQuery = (String) SpringSearcher.getInstance().lookUp("update.record.list");
+        sqlQuery = sqlQuery.replace("username", username);
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource()
+                .addValue("choice", choice.toUpperCase())
+                .addValue("id", id);
+        queryParameter.update(sqlQuery,mapSqlParameterSource);
+    }
+
+    //COMPLETED FOR NOW
 }

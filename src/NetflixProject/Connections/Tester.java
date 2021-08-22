@@ -1,11 +1,7 @@
 package NetflixProject.Connections;
 
 import NetflixProject.Connections.DatabaseOperations.DatabaseOperator;
-import NetflixProject.Connections.DatabaseOperations.DatabaseUpdater;
 import NetflixProject.ProfileManagement.Profile;
-import NetflixProject.ProfileManagement.ProfileSearcher;
-import NetflixProject.ProjectConstants;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +18,13 @@ public class Tester {
         profile.userID = 1;
         profile.userName = "Scooby";
         profile.password = "Coward!";
-//        System.out.println(databaseUpdater.transformIntegerList(ProjectConstants.ORIGINALRECORDSIDS));
-//        System.out.println(DatabaseOperator.getOriginalRecordListIDs());
+        //--------------TESTING FOR DATABASE UPDATER-------------//
 //        DatabaseOperator.addProfileToUserTable(profile);
-//        DatabaseOperator.getAllUsers().forEach(tempProfile ->{
-//            System.out.println(profile.toCSVSingle());
-//            if (tempProfile.userID == 1){
-//                tempProfile.undecidedTitles.forEach(record -> System.out.println(record.toCSVSingle()));
-//            }
-//        });
-//        DatabaseOperator.getUserRecordList(1, "undecided").forEach(record -> System.out.println(record.toCSVSingle()));
-        DatabaseOperator.addProfileToUserTable(profile);
+//        DatabaseOperator.updateRecordLists(profile.userName, "liked", 1);
+        //--------------TESTING FOR DATABASE QUERYS--------------//
+//        DatabaseOperator.getUserRecordList(profile.userName, "UNDECIDED").forEach(record -> System.out.println(record.toCSVSingle()));
+//        DatabaseOperator.getAllUsers().forEach(user -> System.out.println(user.toCSVSingle()));
+//        DatabaseOperator.getOriginalRecordList().forEach(record -> System.out.println(record.toCSVSingle()));
+//        System.out.println(DatabaseOperator.getTitle(22).toCSVSingle());
     }
 }

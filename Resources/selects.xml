@@ -21,7 +21,9 @@
     </bean>
 
     <bean id="get.user.records" class="java.lang.String">
-        <constructor-arg value="SELECT :listType FROM users WHERE id = :id"/>
+        <constructor-arg value="SELECT * from netflixtinder.netflix_titles AS titles
+         INNER JOIN Lists.username_record_list ON titles.id = Lists.username_record_list.id
+          WHERE Lists.username_record_list.opinion = 'choice';"/>
     </bean>
 
 </beans>

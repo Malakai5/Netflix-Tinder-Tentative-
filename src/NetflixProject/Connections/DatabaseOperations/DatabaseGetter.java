@@ -1,6 +1,5 @@
 package NetflixProject.Connections.DatabaseOperations;
 
-import NetflixProject.Connections.Driver;
 import NetflixProject.ProfileManagement.Profile;
 import NetflixProject.Record;
 import NetflixProject.SpringSearcher;
@@ -16,34 +15,25 @@ public class DatabaseGetter {
         this.queryParameter = namedParameterJdbcTemplate;
     }
 
-    private List<Integer> transformStringBack(String rawIDList){
-        if (rawIDList == null){
-            return new ArrayList<>();
-        }
-        List<String> rawIDStringList = Arrays.asList(rawIDList.split(","));
-        List<Integer> titleIDs = new ArrayList<>();
-        rawIDStringList.forEach(id -> titleIDs.add(Integer.parseInt(id)));
-        return titleIDs;
-    }
-
-    private List<String> splitGenres(String rawGenres){
-        List<String> genreList;
-        final String DELIMITER = ";";
-        genreList = Arrays.asList(rawGenres.split(DELIMITER));
-        return genreList;
-    }
-
-    public List<Record> getUserRecordList(int userID, String listType){
+    public List<Record> getUserRecordList(String username, String choice){
         String sqlQuery = (String) SpringSearcher.getInstance().lookUp("get.user.records");
-        List<Integer> titleIDs;
-        List<String> rawStringList;
-        String temp = "";
-        sqlQuery = sqlQuery.replace(":listType",listType);
-        sqlQuery = sqlQuery.replace(":id", String.valueOf(userID));
-        rawStringList = queryParameter.query(sqlQuery, (rs, row)-> temp.replace(temp,rs.getObject(listType,String.class)));
-        String rawString = rawStringList.get(0);
-        titleIDs = transformStringBack(rawString);
-        return getTitleList(titleIDs);
+        List<Record> recordList;
+        sqlQuery = sqlQuery.replace("username", username);
+        sqlQuery = sqlQuery.replace("choice", choice);
+        recordList = queryParameter.query(sqlQuery, (rs, row)->{
+            Record record = new Record();
+            record.titleID = rs.getInt("id");
+            record.mediaType = rs.getString("type");
+            record.titleName = rs.getString("title");
+            record.country = rs.getString("country");
+            record.releaseYear = rs.getInt("release_year");
+            record.tvRating = rs.getString("rating");
+            record.duration = rs.getString("duration");
+            record.genre = splitGenres(rs.getString("genre"));
+            record.description = rs.getString("description");
+            return record;
+        });
+        return recordList;
     }
 
     public Record getTitle(int id){
@@ -65,18 +55,22 @@ public class DatabaseGetter {
         return record;
     }
 
-    public List<Integer> getOriginalRecordListIDs(){
+    public List<Record> getOriginalRecordList(){
         String sqlQuery = (String) SpringSearcher.getInstance().lookUp("get.all.records");
-        List<Integer> titledIDs;
-        titledIDs = queryParameter.query(sqlQuery, (rs, row)-> rs.getInt("id"));
-        return titledIDs;
-    }
-
-    public List<Record> getTitleList(List<Integer> titleIDs){
-        List<Record> recordList = new ArrayList<>();
-        for (int i=0; i<=titleIDs.size()-1;i++){
-            recordList.add(getTitle(titleIDs.get(i)));
-        }
+        List<Record> recordList;
+        recordList = queryParameter.query(sqlQuery, (rs, row)->{
+            Record record = new Record();
+            record.titleID = rs.getInt("id");
+            record.mediaType = rs.getString("type");
+            record.titleName = rs.getString("title");
+            record.country = rs.getString("country");
+            record.releaseYear = rs.getInt("release_year");
+            record.tvRating = rs.getString("rating");
+            record.duration = rs.getString("duration");
+            record.genre = splitGenres(rs.getString("genre"));
+            record.description = rs.getString("description");
+            return record;
+        });
         return recordList;
     }
 
@@ -88,11 +82,22 @@ public class DatabaseGetter {
             profile.userID = rs.getInt("id");
             profile.userName = rs.getString("username");
             profile.password = rs.getString("password");
-            profile.undecidedTitles = getUserRecordList(profile.userID, "undecided");
-            profile.likedTitles = getUserRecordList(profile.userID, "liked");
-            profile.dislikedTitles = getUserRecordList(profile.userID, "disliked");
+            profile.undecidedTitles = getUserRecordList(profile.userName, "undecided");
+            profile.likedTitles = getUserRecordList(profile.userName, "liked");
+            profile.dislikedTitles = getUserRecordList(profile.userName, "disliked");
             return profile;
         });
         return profileList;
     }
+
+
+
+    //---------HELPER METHODS------------//
+    private List<String> splitGenres(String rawGenres){
+        List<String> genreList;
+        final String DELIMITER = ";";
+        genreList = Arrays.asList(rawGenres.split(DELIMITER));
+        return genreList;
+    }
+
 }
