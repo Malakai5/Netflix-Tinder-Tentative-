@@ -35,7 +35,7 @@ public class Authenticator implements ProjectConstants {
             return false;
         }
         for (Profile thatProfile: PROFILES){
-            if (profile.userName.equals(profile.userName.toLowerCase())) {
+            if (thatProfile.userName.equals(profile.userName.toLowerCase())) {
                 profile.userID = thatProfile.userID;
                 return true;
             }

@@ -14,9 +14,7 @@ public class User implements CSVUser {
 
     public User(){
         this.profileList = DatabaseOperator.getAllUsers();
-//        this.profileList = csvReader.readProfileCSV(); OLD METHOD
         this.originalRecordListIDs = DatabaseOperator.getOriginalRecordList();
-//        this.originalRecordList = csvReader.readCSV("Netflix(Original!!).csv"); OLD METHOD
         this.profile = new Profile();
     }
 
