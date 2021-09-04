@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SpringSearcher {
     private static final SpringSearcher searcher = new SpringSearcher();
-    private static final String springXml = "Spring.xml";
+    private static final String springXml = "spring.xml";
     private static final ApplicationContext baseContext = configs();
 
     private static ApplicationContext configs(){
