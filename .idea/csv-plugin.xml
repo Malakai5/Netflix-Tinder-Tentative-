@@ -262,6 +262,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\src\RestServices\RESTApp.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\Singleton.java">
           <value>
             <Attribute>
