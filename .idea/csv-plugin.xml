@@ -276,6 +276,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\src\demo\src\test\java\com\example\demo\DemoApplicationTests.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\src\Converter.java">
           <value>
             <Attribute>
