@@ -1,6 +1,5 @@
 package NetflixProject.AppOperations;
 
-import NetflixProject.ProfileManagement.Profile;
 import NetflixProject.Record;
 
 import java.util.List;
