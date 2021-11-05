@@ -10,6 +10,8 @@ public class Profile {
    public List<Record> likedTitles = new ArrayList<>();
    public List<Record> dislikedTitles = new ArrayList<>();
    public List<Record> undecidedTitles = new ArrayList<>();
+   public String country = "";
+   public List<String> preferredGenres = new ArrayList<>();
    public int userID;
 
     public Profile(String userName, int userID) {

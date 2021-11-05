@@ -1,13 +1,12 @@
 package NetflixProject.ProfileManagement;
 
-import NetflixProject.CSVService.CSVUser;
 import NetflixProject.Connections.DatabaseOperations.DatabaseOperator;
 import NetflixProject.ProjectConstants;
 
 import java.util.Collections;
 import java.util.Scanner;
 
-public class ProfileSearcher implements CSVUser, ProjectConstants {
+public class ProfileSearcher implements ProjectConstants {
     public Boolean profileAssigned = false;
     private Profile profile;
     Authenticator authenticator = new Authenticator();

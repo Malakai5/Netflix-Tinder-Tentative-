@@ -82,6 +82,8 @@ public class DatabaseGetter {
             profile.userID = rs.getInt("id");
             profile.userName = rs.getString("username");
             profile.password = rs.getString("password");
+            profile.country = rs.getString("country");
+            profile.preferredGenres = splitGenres(rs.getString("preferred_genres"));
             profile.undecidedTitles = getUserRecordList(profile.userName, "undecided");
             profile.likedTitles = getUserRecordList(profile.userName, "liked");
             profile.dislikedTitles = getUserRecordList(profile.userName, "disliked");

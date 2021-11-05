@@ -1,12 +1,11 @@
 package NetflixProject;
 
-import NetflixProject.CSVService.CSVUser;
 import NetflixProject.Connections.DatabaseOperations.DatabaseOperator;
 import NetflixProject.ProfileManagement.Profile;
 
 import java.util.List;
 
-public class User implements CSVUser {
+public class User {
     private static User single_instance = null;
     public Profile profile;
     List<Profile> profileList;

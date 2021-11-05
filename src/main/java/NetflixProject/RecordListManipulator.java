@@ -1,6 +1,5 @@
 package NetflixProject;
 
-import NetflixProject.CSVService.CSVUser;
 import NetflixProject.Connections.DatabaseOperations.DatabaseOperator;
 import NetflixProject.ProfileManagement.Profile;
 import NetflixProject.ProfileManagement.ProfileSearcher;
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class RecordListManipulator implements CSVUser {
+public class RecordListManipulator {
     Profile profile;
     public RecordListManipulator(Profile profile) {
         this.profile = profile;
