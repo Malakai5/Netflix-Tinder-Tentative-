@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DatabaseUpdater {
@@ -28,11 +29,22 @@ public class DatabaseUpdater {
         return sb.toString();
     }
 
+    private String getRawGenreString(List<String> preferredGenres){
+        StringBuilder sb = new StringBuilder();
+        preferredGenres.forEach(genre->{
+           sb.append(genre).append(", ");
+        });
+        return sb.toString();
+    }
+
     public void addProfileToUserTable(Profile profile){
         List<String> sqlQueryList = (List<String>) SpringSearcher.getInstance().lookUp("add.to.users");
+
         MapSqlParameterSource firstSQL = new MapSqlParameterSource()
                 .addValue("username", profile.userName)
-                .addValue("password", profile.password);
+                .addValue("password", profile.password)
+                .addValue("country", profile.country)
+                .addValue("preferred_genres", getRawGenreString(profile.preferredGenres));
         String secondSQL = sqlQueryList.get(1).replace("custom", profile.userName);
         String thirdSQL = sqlQueryList.get(2).replace("custom", profile.userName);
         queryParameter.update(sqlQueryList.get(0),firstSQL);
