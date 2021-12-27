@@ -25,7 +25,7 @@
     <!--REFERENCE BEANS-->
 
     <bean id="insert.into.users" class="java.lang.String">
-        <constructor-arg value="INSERT INTO users (username, password, country, preferred_genres) VALUES (:username, :password, :country, :preferred_genres);"/>
+        <constructor-arg value="INSERT INTO users (username, password) VALUES (:username, :password);"/>
     </bean>
 
     <bean id="create.user.table" class="java.lang.String">

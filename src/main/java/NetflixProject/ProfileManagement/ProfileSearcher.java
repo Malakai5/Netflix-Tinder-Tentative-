@@ -17,8 +17,6 @@ public class ProfileSearcher implements ProjectConstants {
         this.profile = profile;
     }
 
-
-
     private void findValidUser() {
         System.out.println("Please enter username");
         Scanner scnr = new Scanner(System.in);
@@ -34,7 +32,7 @@ public class ProfileSearcher implements ProjectConstants {
         else System.out.println("That profile name was not found\n");
     }
 
-    private void makeNewProfile() {
+    public void makeNewProfile() {
         Scanner scnr = new Scanner(System.in);
         String userName = scnr.nextLine().toLowerCase();
         System.out.println("Please enter a password\n" + "min 7 characters");
@@ -43,7 +41,6 @@ public class ProfileSearcher implements ProjectConstants {
         if (!authenticator.isNameTaken(profile) && authenticator.validUsername(userName)
                 && authenticator.validPassword(password)) {
             System.out.println("");
-            profile.getPreferredGenres();
             profile.userID = PROFILES.size() +1 ;
             profile.password = password;
             DatabaseOperator.addProfileToUserTable(profile);

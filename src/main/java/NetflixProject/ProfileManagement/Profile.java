@@ -2,9 +2,7 @@ package NetflixProject.ProfileManagement;
 
 import NetflixProject.Record;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class Profile {
    public String userName;
@@ -33,12 +31,5 @@ public class Profile {
 
     public String toCSVSingle(){
         return userName + "," + userID + "\n";
-    }
-
-    public void getPreferredGenres(){
-        System.out.println("What are you favorite genres? (Enter a genre and then add a space in between)");
-        Scanner scan = new Scanner(System.in);
-        String rawGenreList = scan.nextLine();
-        preferredGenres = Arrays.asList(rawGenreList.split(" "));
     }
 }

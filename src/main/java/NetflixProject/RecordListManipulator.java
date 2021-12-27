@@ -7,11 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class RecordListManipulator implements ProjectConstants{
+public class RecordListManipulator {
     Profile profile;
-    List<Record> givenRecordList = new ArrayList<>();
-    Scanner scnr = new Scanner(System.in);
-
     public RecordListManipulator(Profile profile) {
         this.profile = profile;
     }
@@ -30,30 +27,6 @@ public class RecordListManipulator implements ProjectConstants{
         System.out.println("That ain't it huh?\n");
     }
 
-    private void askForMediaType(){
-        System.out.println("Would you like a Movie, a Show, or both?");
-        String option = scnr.next().toLowerCase();
-        if (option.equals("movie")){
-            System.out.println("alright lets start looking at some Movies!");
-            ORIGINALRECORDSIDS.forEach(record -> {
-                if (record.mediaType.equalsIgnoreCase("movie"))
-                    givenRecordList.add(record);
-            });
-        }     if (option.equals("show")){
-            System.out.println("alright lets start looking at some Shows!");
-            ORIGINALRECORDSIDS.forEach(record -> {
-                if (record.mediaType.equalsIgnoreCase("TV show"))
-                    givenRecordList.add(record);
-            });
-        }     if (!option.equals("movie") & !option.equals("show")){
-            System.out.println("Not very picky huh?");
-            givenRecordList.addAll(ORIGINALRECORDSIDS);
-        }
-        givenRecordList.forEach(record -> System.out.println(record.toCSVSingle()));
-
-
-    }
-
     public void compareLikedLists() {
         ProfileSearcher profileSearcher = new ProfileSearcher();
         Profile thatProfile = profileSearcher.requestSecondProfile();
@@ -65,7 +38,7 @@ public class RecordListManipulator implements ProjectConstants{
                 thatProfile.likedTitles.forEach(record -> {
                     if (record.titleName.equals(temp.titleName)) {
                         sharedTitles.add(temp);
-                    }
+                    } //TODO fix this bull
                 });
                 listSize++;
             }
@@ -82,7 +55,7 @@ public class RecordListManipulator implements ProjectConstants{
 
     public void sortingTitles() {
         boolean stillSwiping = true;
-        askForMediaType();
+        Scanner scnr = new Scanner(System.in);
         System.out.println("Do you like these titles?");
         while (stillSwiping) {
             System.out.println("'1' for yes, '2' for no, and '3' to stop swiping\n");
